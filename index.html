@@ -8,286 +8,295 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1e293b; /* Қанық қою көк */
-            --secondary: #3b82f6; /* Ашық көк */
-            --gradient-start: #2a3a50; /* Градиенттің басы */
-            --gradient-end: #3b82f6;   /* Градиенттің соңы */
+            --primary: #1e293b;
+            --secondary: #3b82f6;
+            --gradient-start: #2a3a50;
+            --gradient-end: #3b82f6;
             --bg-light: #f8fafc;
         }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-light); overflow-x: hidden; margin: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-light); margin: 0; }
 
-        /* HEADER & HERO SECTION (BERILGEN SKINSHOTTAGYDAGYDAI DESIGN) */
-        .top-nav {
-            background-color: var(--primary); color: white; padding: 10px 20px;
-            display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .logo { font-size: 20px; font-weight: bold; color: white; display: flex; align-items: center; text-decoration: none; }
-        .logo i { margin-right: 10px; font-size: 24px; }
+        .top-nav { background-color: var(--primary); color: white; padding: 12px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo { font-size: 20px; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; }
+        .logo i { margin-right: 10px; }
 
         .hero-banner {
-            height: 60vh; /* Экранның жартысынан сәл көбірек */
+            height: 45vh;
             background: linear-gradient(135deg, var(--gradient-start) 30%, var(--gradient-end) 90%);
-            color: white; border-radius: 0 0 30px 30px; display: flex;
-            align-items: center; justify-content: center; text-align: center; padding: 40px; margin-bottom: 40px;
+            color: white; border-radius: 0 0 40px 40px; display: flex;
+            align-items: center; justify-content: center; text-align: center; padding: 20px;
         }
-        .hero-banner h1 { font-size: 42px; fw-bold; margin-bottom: 10px; }
-        .hero-banner p { font-size: 20px; font-weight: 300; margin: 0; }
+        .hero-banner h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; }
 
-        /* DASHBOARD WIDGETS */
-        .dashboard-widgets { padding: 0 20px 40px; }
-        .stat-card {
-            border: none; border-radius: 16px; padding: 20px; background: white;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: 0.3s;
-            cursor: pointer; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;
-        }
-        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-        .icon-circle {
-            width: 50px; height: 50px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; font-size: 24px; margin-bottom: 15px;
-        }
-
-        /* SECTION PAGES (BARLYK SECTION-GA ARTKA KAITU BATYRMASY KOSYLDY) */
-        .section-page { display: none; animation: slideUp 0.4s ease; padding: 40px 20px; width: 100%; }
+        .section-page { display: none; animation: fadeIn 0.4s ease; padding: 30px 15px; }
         .section-page.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .back-bar { display: flex; align-items: center; margin-bottom: 30px; padding: 0 20px; }
-        .back-btn { font-size: 24px; cursor: pointer; color: var(--primary); margin-right: 20px; transition: 0.2s; }
-        .back-btn:hover { color: var(--secondary); transform: translateX(-3px); }
+        .stat-card {
+            border: none; border-radius: 20px; padding: 20px; background: white;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); transition: 0.3s;
+            cursor: pointer; text-align: center; height: 100%;
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
 
-        .section-card { border: none; border-radius: 16px; padding: 25px; background: white; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; margin-bottom: 20px; }
-        .sch-item { border-left: 4px solid var(--secondary); background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .news-card {
+            background: white; border-radius: 20px; padding: 25px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-top: 30px;
+        }
+        .news-item {
+            border-left: 4px solid var(--secondary); padding: 10px 15px;
+            background: #f1f5f9; border-radius: 8px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; color: var(--primary); }
+        .section-card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
     <div id="home" class="section-page active" style="padding:0">
         <div class="top-nav">
-            <a href="#" class="logo"><i class="fas fa-graduation-cap text-secondary"></i> UniStep</a>
+            <a href="#" class="logo"><i class="fas fa-walking"></i> UniStep</a>
         </div>
-
         <div class="hero-banner">
             <div>
-                <h1 class="fw-bold">UniStep: Цифрлық Ментор</h1>
+                <h1>UniStep: Цифрлық Ментор</h1>
                 <p>Университетке бейімделудің ең оңай жолы</p>
             </div>
         </div>
 
-        <div class="container dashboard-widgets">
-            <div class="row g-4 mb-4 text-center">
-                <div class="col-md-3">
-                    <div class="stat-card" onclick="openSection('schedule')">
-                        <div class="icon-circle bg-primary text-white"><i class="fas fa-clock"></i></div>
-                        <h5>Кесте</h5>
-                        <p class="text-muted m-0 small">Бүгінгі сабақтар</p>
+        <div class="container mt-4">
+            <div class="row g-3">
+                <div class="col-6 col-md-3" onclick="openSection('schedule')">
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
+                        <h6>Кесте</h6>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card" onclick="openSection('academic')">
-                        <div class="icon-circle bg-success text-white"><i class="fas fa-graduation-cap"></i></div>
-                        <h5>GPA</h5>
-                        <p class="text-muted m-0 small">Есептеу</p>
+                <div class="col-6 col-md-3" onclick="openSection('academic')">
+                    <div class="stat-card">
+                        <i class="fas fa-calculator fa-2x text-success mb-2"></i>
+                        <h6>GPA</h6>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card" onclick="openSection('campus')">
-                        <div class="icon-circle bg-warning text-white"><i class="fas fa-university"></i></div>
-                        <h5>Кампус</h5>
-                        <p class="text-muted m-0 small">Карта & Кабар</p>
+                <div class="col-6 col-md-3" onclick="openSection('campus')">
+                    <div class="stat-card">
+                        <i class="fas fa-bullhorn fa-2x text-warning mb-2"></i>
+                        <h6>Хабарландыру</h6>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="stat-card" onclick="openSection('advisor')">
-                        <div class="icon-circle bg-danger text-white"><i class="fas fa-comments"></i></div>
-                        <h5>Advisor</h5>
-                        <p class="text-muted m-0 small">Сұрақ қою</p>
+                <div class="col-6 col-md-3" onclick="openSection('advisor')">
+                    <div class="stat-card">
+                        <i class="fas fa-user-tie fa-2x text-danger mb-2"></i>
+                        <h6>Advisor</h6>
                     </div>
                 </div>
+            </div>
+
+            <div class="news-card mb-5">
+                <h5 class="fw-bold mb-3"><i class="fas fa-newspaper me-2 text-primary"></i> Соңғы хабарландырулар</h5>
+                <div id="homeNewsList">
+                    </div>
             </div>
         </div>
     </div>
 
     <div id="academic" class="section-page">
-        <div class="back-bar">
-            <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
-            <h3 class="m-0 fw-bold text-dark">Оқу ресурсы</h3>
-        </div>
         <div class="container">
+            <div class="d-flex align-items-center mb-4">
+                <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
+                <h3 class="m-0">GPA Калькулятор</h3>
+            </div>
             <div class="section-card">
-                <h4><i class="fas fa-calculator text-primary me-2"></i> GPA Калькулятор</h4>
-                <div class="row g-3">
-                    <div class="col-md-4"><input type="number" id="sc" class="form-control" placeholder="Балл (0-100)"></div>
-                    <div class="col-md-4"><input type="number" id="cr" class="form-control" placeholder="Кредит"></div>
-                    <div class="col-md-4"><button onclick="calc()" class="btn btn-primary w-100">Есептеу</button></div>
-                </div>
-                <div id="gpaRes" class="mt-3 text-center h4 text-primary fw-bold"></div>
+                <input type="number" id="sc" class="form-control mb-3" placeholder="Балл (0-100)">
+                <button onclick="calcGPA()" class="btn btn-primary w-100">Есептеу</button>
+                <div id="gpaRes" class="mt-3 text-center h4 fw-bold"></div>
             </div>
         </div>
     </div>
 
     <div id="schedule" class="section-page">
-        <div class="back-bar">
-            <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
-            <h3 class="m-0 fw-bold text-dark">Сабақ кестесі</h3>
-        </div>
         <div class="container">
+            <div class="d-flex align-items-center mb-4">
+                <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
+                <h3 class="m-0">Сабақ кестесі</h3>
+            </div>
             <div class="section-card mb-4">
-                <h5>Жаңа сабақ қосу</h5>
-                <div class="d-flex gap-2">
+                <div class="input-group mb-2">
                     <select id="day" class="form-select w-25"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select>
-                    <input type="text" id="subj" class="form-control" placeholder="Уақыты: Пән (М: 09:00: Математика)">
-                    <button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button>
+                    <input type="text" id="subj" class="form-control" placeholder="09:00 - Математика">
+                    <button onclick="addSchedule()" class="btn btn-success"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
-            <div id="schList" class="row"></div>
+            <div id="fullScheduleList"></div>
         </div>
     </div>
 
     <div id="campus" class="section-page">
-        <div class="back-bar">
-            <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
-            <h3 class="m-0 fw-bold text-dark">Кампус</h3>
-        </div>
         <div class="container">
-            <div class="section-card mb-4">
-                <h4>🗺️ Университет Картасы</h4>
-                <div class="bg-light p-5 text-center rounded-4 border">КАРТА СУРЕТІ ОСЫНДА</div>
+            <div class="d-flex align-items-center mb-4">
+                <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
+                <h3 class="m-0">Хабарландыру жазу</h3>
             </div>
             <div class="section-card">
-                <h4>📢 Жаңа хабарландыру жазу</h4>
-                <textarea id="newsInp" class="form-control mb-3" placeholder="Студенттерге маңызды хабарлама..."></textarea>
-                <button onclick="addNw()" class="btn btn-warning w-100 fw-bold">Жариялау</button>
+                <p class="text-muted small">Ескерту: Хабарландыру 24 сағаттан кейін автоматты түрде өшеді.</p>
+                <textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Маңызды ақпарат жазыңыз..."></textarea>
+                <button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button>
             </div>
         </div>
     </div>
 
     <div id="advisor" class="section-page">
-        <div class="back-bar">
-            <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
-            <h3 class="m-0 fw-bold text-dark">Digital Advisor</h3>
-        </div>
         <div class="container">
+            <div class="d-flex align-items-center mb-4">
+                <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
+                <h3 class="m-0">Digital Advisor</h3>
+            </div>
             <div class="section-card text-center">
-                <i class="fas fa-user-secret fa-3x text-muted mb-3"></i>
-                <h5>Эдвайзерге анонимді сұрақ қою</h5>
-                <textarea id="anonQ" class="form-control mb-3" rows="4" placeholder="Сұрағыңызды қалдырыңыз..."></textarea>
-                <button onclick="sendQ()" class="btn btn-primary w-100rounded-pill">Жіберу</button>
+                <i class="fas fa-comment-dots fa-3x text-muted mb-3"></i>
+                <h5>Анонимді сұрақ</h5>
+                <textarea id="anonQ" class="form-control mb-3" rows="4" placeholder="Сұрағыңызды осында жазыңыз..."></textarea>
+                <button onclick="sendQuestion()" class="btn btn-primary w-100 rounded-pill">Жіберу</button>
             </div>
         </div>
     </div>
 
-    <div class="text-end" style="position:fixed; bottom:10px; right:10px; opacity: 0.3">
-        <button onclick="adminLogin()" class="btn btn-light btn-sm text-muted" style="font-size: 10px;">Admin</button>
-    </div>
     <div id="admin" class="section-page">
-        <div class="back-bar">
-            <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
-            <h3 class="m-0 fw-bold text-dark">Админ Панель</h3>
-        </div>
         <div class="container">
-            <div class="section-card border-start border-danger border-5">
-                <h3>🔒 Сұрақтар банкі (Админ/Эдвайзер)</h3>
-                <div id="qList"></div>
+            <div class="d-flex align-items-center mb-4">
+                <i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i>
+                <h3 class="m-0">Админ Панель</h3>
+            </div>
+            <div class="section-card border-danger border-top border-4">
+                <h5 class="text-danger fw-bold mb-4">Келіп түскен сұрақтар тізімі</h5>
+                <div id="adminQList"></div>
             </div>
         </div>
+    </div>
+
+    <div class="text-center py-4">
+        <button onclick="enterAdmin()" class="btn btn-sm text-muted border-0" style="opacity: 0.2">Admin Access</button>
     </div>
 
     <script>
-        // --- NAVIGATION FIXED (ARTKA KAITU FIXED) ---
+        // Бөлімдерді ауыстыру
         function openSection(id) {
-            // Барлық бөлімдерді жасыру
             document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
-            // Керекті бөлімді толық экранды етіп көрсету
             document.getElementById(id).classList.add('active');
-            // Экранды жоғарыға апару (scroll to top)
-            window.scrollTo(0, 0);
+            window.scrollTo(0,0);
         }
+        function backToHome() { openSection('home'); }
 
-        function backToHome() {
-            // Барлық бөлімдерді жасыру
-            document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
-            // Басты бетті толық экранды етіп көрсету
-            document.getElementById('home').classList.add('active');
-        }
-
-        // --- GPA КҮРДЕЛІ ЕУ ---
-        function calc() {
-            let s = document.getElementById('sc').value;
-            let g = s >= 95 ? 4.0 : (s >= 90 ? 3.67 : (s >= 80 ? 3.0 : 2.0));
-            document.getElementById('gpaRes').innerText = `GPA: ${g}`;
-        }
-
-        // --- САБАҚ КЕСТЕСІ ---
-        function addSch() {
-            let d = document.getElementById('day').value;
-            let s = document.getElementById('subj').value;
-            if(!s) return;
-            let sch = JSON.parse(localStorage.getItem('uniSch_v2') || '[]');
-            sch.push({d, s});
-            localStorage.setItem('uniSch_v2', JSON.stringify(sch));
-            renderSch();
+        // --- САБАҚ КЕСТЕСІ (ҚОСУ ЖӘНЕ ӨШІРУ) ---
+        function addSchedule() {
+            let day = document.getElementById('day').value;
+            let sub = document.getElementById('subj').value;
+            if(!sub) return;
+            let list = JSON.parse(localStorage.getItem('uni_sch') || '[]');
+            list.push({day, sub, id: Date.now()});
+            localStorage.setItem('uni_sch', JSON.stringify(list));
             document.getElementById('subj').value = "";
+            renderSchedule();
         }
 
-        function renderSch() {
-            let sch = JSON.parse(localStorage.getItem('uniSch_v2') || '[]');
-            document.getElementById('schList').innerHTML = sch.map((x, i) => `
-                <div class="col-md-4 mb-2">
-                    <div class="card p-2 sch-item">
-                        <small class="text-primary fw-bold">${x.d}</small>
-                        <div class="d-flex justify-content-between">
-                            <span>${x.s}</span>
-                            <i class="fas fa-trash text-danger" style="cursor:pointer" onclick="del('uniSch_v2',${i},renderSch)"></i>
-                        </div>
-                    </div>
+        function renderSchedule() {
+            let list = JSON.parse(localStorage.getItem('uni_sch') || '[]');
+            document.getElementById('fullScheduleList').innerHTML = list.map(item => `
+                <div class="news-item">
+                    <span><b>${item.day}:</b> ${item.sub}</span>
+                    <i class="fas fa-trash-alt text-danger" onclick="deleteItem('uni_sch', ${item.id}, renderSchedule)"></i>
                 </div>
             `).join('');
         }
 
-        // --- ХАБАРЛАНДЫРУ ---
-        function addNw() {
-            let t = document.getElementById('newsInp').value;
-            if(!t) return;
-            let n = JSON.parse(localStorage.getItem('uniNews_v2') || '[]');
-            n.unshift({t, d: new Date().toLocaleString()});
-            localStorage.setItem('uniNews_v2', JSON.stringify(n));
+        // --- ХАБАРЛАНДЫРУ (24 САҒАТТЫҚ ЛОГИКА) ---
+        function saveNews() {
+            let text = document.getElementById('newsInp').value;
+            if(!text) return;
+            let news = JSON.parse(localStorage.getItem('uni_news') || '[]');
+            news.unshift({
+                text, 
+                time: Date.now(), // Жазылған уақыты (миллисекунд)
+                id: Date.now()
+            });
+            localStorage.setItem('uni_news', JSON.stringify(news));
             document.getElementById('newsInp').value = "";
-            alert("Хабарландыру жарияланды!");
+            alert("Жарияланды!");
+            renderNews();
             backToHome();
         }
 
-        // --- АНОНИМДІ СҰРАҚТАР (ADMIN PANELDEN KORE ALASYNYZ) ---
-        function sendQ() {
+        function renderNews() {
+            let news = JSON.parse(localStorage.getItem('uni_news') || '[]');
+            let currentTime = Date.now();
+            let dayInMs = 24 * 60 * 60 * 1000; // 24 сағат миллисекундпен
+
+            // 24 сағаттан асқандарын сүзгіден өткізу
+            let validNews = news.filter(n => (currentTime - n.time) < dayInMs);
+            localStorage.setItem('uni_news', JSON.stringify(validNews));
+
+            document.getElementById('homeNewsList').innerHTML = validNews.map(n => `
+                <div class="news-item">
+                    <div>
+                        <div class="small fw-bold">${new Date(n.time).toLocaleTimeString()}</div>
+                        <div>${n.text}</div>
+                    </div>
+                    <i class="fas fa-times text-muted ms-2" onclick="deleteItem('uni_news', ${n.id}, renderNews)"></i>
+                </div>
+            `).join('') || "<p class='text-muted small'>Әзірге хабарландырулар жоқ.</p>";
+        }
+
+        // --- АДМИН ЖӘНЕ СҰРАҚТАР ---
+        function sendQuestion() {
             let q = document.getElementById('anonQ').value;
             if(!q) return;
-            let qs = JSON.parse(localStorage.getItem('uniQs_v2') || '[]');
-            qs.push({q, t: new Date().toLocaleString()});
-            localStorage.setItem('uniQs_v2', JSON.stringify(qs));
+            let qs = JSON.parse(localStorage.getItem('uni_questions') || '[]');
+            qs.push({q, time: new Date().toLocaleString()});
+            localStorage.setItem('uni_questions', JSON.stringify(qs));
             alert("Сұрақ жіберілді!");
             document.getElementById('anonQ').value = "";
             backToHome();
         }
 
-        function adminLogin() {
-            let p = prompt("Админ паролін енгізіңіз:");
-            if(p === "admin123") { // Админ парольі осы жерде (КАЛАСАНЫЗ ОЗГЕРТІҢІЗ)
-                let qs = JSON.parse(localStorage.getItem('uniQs_v2') || '[]');
-                document.getElementById('qList').innerHTML = qs.map(x => `
-                    <div class="alert alert-info border-0 shadow-sm"><b>Сұрақ:</b> ${x.q} <br><small class="text-muted">${x.t}</small></div>
-                `).join('') || "Сұрақтар жоқ.";
+        function enterAdmin() {
+            let pass = prompt("Админ паролін енгізіңіз:");
+            if(pass === "admin123") {
+                renderAdminQuestions();
                 openSection('admin');
-            } else { alert("Қате пароль!"); }
+            } else {
+                alert("Қате пароль!");
+            }
         }
 
-        function del(key, i, cb) {
-            let d = JSON.parse(localStorage.getItem(key));
-            data.splice(i, 1);
-            localStorage.setItem(key, JSON.stringify(d));
-            cb();
+        function renderAdminQuestions() {
+            let qs = JSON.parse(localStorage.getItem('uni_questions') || '[]');
+            document.getElementById('adminQList').innerHTML = qs.map(item => `
+                <div class="alert alert-light border shadow-sm">
+                    <p class="mb-1">${item.q}</p>
+                    <small class="text-muted">${item.time}</small>
+                </div>
+            `).join('') || "Сұрақтар бос.";
         }
 
-        window.onload = () => { renderSch(); };
+        // Ортақ өшіру функциясы
+        function deleteItem(storageKey, id, callback) {
+            let data = JSON.parse(localStorage.getItem(storageKey));
+            let filtered = data.filter(x => x.id !== id);
+            localStorage.setItem(storageKey, JSON.stringify(filtered));
+            callback();
+        }
+
+        function calcGPA() {
+            let s = document.getElementById('sc').value;
+            let g = s >= 90 ? 4.0 : (s >= 80 ? 3.0 : 2.0);
+            document.getElementById('gpaRes').innerText = `Нәтиже: ${g}`;
+        }
+
+        window.onload = () => {
+            renderNews();
+            renderSchedule();
+        };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
