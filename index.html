@@ -18,7 +18,7 @@
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); transition: 0.3s; margin: 0; }
         
         .top-nav { background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .hero { min-height: 32vh; background: linear-gradient(135deg, #2a3a50 30%, var(--secondary) 90%); color: white; border-radius: 0 0 40px 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 30px 20px; }
+        .hero { min-height: 35vh; background: linear-gradient(135deg, #2a3a50 30%, var(--secondary) 90%); color: white; border-radius: 0 0 40px 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 30px 20px; }
         
         .section-page { display: none; animation: fadeIn 0.4s ease; padding: 25px 15px; }
         .active { display: block; }
@@ -48,9 +48,9 @@
         </div>
         <div class="hero">
             <div class="w-100">
-                <h2 class="fw-bold">Сәлем, Студент! 👋</h2>
-                <p id="daily-quote" class="small opacity-90"></p>
-                <div class="timer-box">
+                <h1 class="fw-bold">UniStep: Цифрлық Ментор</h1>
+                <p id="daily-quote" class="mt-2" style="font-size: 1rem; opacity: 0.9;"></p>
+                <div class="timer-box mx-auto" style="max-width: 300px;">
                     <div class="small mb-1">Сессияға дейін:</div>
                     <div id="countdown" class="h4 fw-bold mb-0">-- күн -- сағат</div>
                 </div>
@@ -58,13 +58,13 @@
         </div>
 
         <div class="container mt-4">
-            <div class="row g-3 mb-4">
+            <div class="row g-3">
                 <div class="col-4" onclick="openSection('schedule')"><div class="stat-card"><i class="fas fa-calendar-alt text-primary fa-lg"></i><div class="small fw-bold mt-1">Кесте</div></div></div>
                 <div class="col-4" onclick="openSection('todo')"><div class="stat-card"><i class="fas fa-tasks text-success fa-lg"></i><div class="small fw-bold mt-1">Жоспар</div></div></div>
                 <div class="col-4" onclick="openSection('academic')"><div class="stat-card"><i class="fas fa-chart-line text-info fa-lg"></i><div class="small fw-bold mt-1">GPA</div></div></div>
             </div>
 
-            <h6 class="fw-bold mb-3"><i class="fas fa-link me-2 text-secondary"></i> Пайдалы сілтемелер</h6>
+            <h6 class="fw-bold mt-4 mb-3"><i class="fas fa-link me-2 text-secondary"></i> Пайдалы сілтемелер</h6>
             <div class="mb-4">
                 <a href="https://platonus.vku.edu.kz" target="_blank" class="link-btn">
                     <i class="fas fa-university text-primary me-3"></i><span>Platonus VKU</span><i class="fas fa-chevron-right ms-auto opacity-50"></i>
@@ -78,6 +78,7 @@
                 <div class="col-4" onclick="openSection('map')"><div class="stat-card"><i class="fas fa-map-marked-alt text-secondary"></i><div class="small fw-bold mt-1">Карта</div></div></div>
                 <div class="col-4" onclick="openSection('glossary')"><div class="stat-card"><i class="fas fa-book text-dark"></i><div class="small fw-bold mt-1">Сөздік</div></div></div>
                 <div class="col-4" onclick="openSection('news-write')"><div class="stat-card"><i class="fas fa-bullhorn text-warning"></i><div class="small fw-bold mt-1">Хабар</div></div></div>
+                <div class="col-4" onclick="openSection('advisor')"><div class="stat-card"><i class="fas fa-user-tie text-danger"></i><div class="small fw-bold mt-1">Advisor</div></div></div>
             </div>
             
             <div class="s-card mt-4 mb-5">
@@ -88,7 +89,7 @@
     </div>
 
     <div id="todo" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жоспар</h3></div>
+        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Бүгінгі жоспар</h3></div>
         <div class="s-card mb-3"><div class="input-group"><input type="text" id="todoInp" class="form-control" placeholder="Жаңа тапсырма..."><button onclick="addTodo()" class="btn btn-success"><i class="fas fa-plus"></i></button></div></div>
         <div id="todoList"></div>
     </div></div>
@@ -103,43 +104,27 @@
         </div>
     </div></div>
 
-    <div id="schedule" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Кесте</h3></div>
-        <div class="s-card mb-3"><div class="input-group"><select id="day" class="form-select"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select><input type="text" id="subj" class="form-control" placeholder="Уақыты: Пән"><button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button></div></div>
-        <div id="schList"></div>
-    </div></div>
+    <div id="schedule" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Кесте</h3></div><div class="s-card mb-3"><div class="input-group"><select id="day" class="form-select"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select><input type="text" id="subj" class="form-control" placeholder="Уақыты: Пән"><button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button></div></div><div id="schList"></div></div></div>
+    
+    <div id="map" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div><div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2543.6!2d82.6!3d49.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDU0JzAwLjAiTiA4MsKwMzYnMDAuMCJF!5e0!3m2!1skk!2skz!4v1620000000000!5m2!1skk!2skz" width="100%" height="450" style="border:0;"></iframe></div></div></div>
 
-    <div id="map" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div>
-        <div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2564.4443655416!2d82.6074!3d49.9577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDU3JzI3LjciTiA4MsKwMzYnMjYuNiJF!5e0!3m2!1skk!2skz!4v1650000000000" width="100%" height="450" style="border:0;"></iframe></div>
-    </div></div>
+    <div id="glossary" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Сөздік</h3></div><div id="glossaryView" class="s-card"></div></div></div>
 
-    <div id="glossary" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Сөздік</h3></div>
-        <div id="glossaryView" class="s-card"></div>
-    </div></div>
+    <div id="news-write" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жазу</h3></div><div class="s-card">
+        <textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Хабарлама..."></textarea>
+        <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" id="urgentCheck"><label class="form-check-label" for="urgentCheck">⚠️ Шұғыл</label></div>
+        <button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button>
+    </div></div></div>
 
-    <div id="news-write" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Хабар жазу</h3></div>
-        <div class="s-card">
-            <textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Хабарлама..."></textarea>
-            <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" id="urgentCheck"><label class="form-check-label" for="urgentCheck">⚠️ Шұғыл</label></div>
-            <button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button>
-        </div>
-    </div></div>
-
-    <div id="advisor" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Advisor</h3></div>
-        <div class="s-card"><h5>Анонимді сұрақ</h5><textarea id="anonQ" class="form-control mb-3" rows="4"></textarea><button onclick="sendQ()" class="btn btn-primary w-100">Жіберу</button></div>
-    </div></div>
+    <div id="advisor" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Advisor</h3></div><div class="s-card"><h5>Анонимді сұрақ</h5><textarea id="anonQ" class="form-control mb-3" rows="4"></textarea><button onclick="sendQ()" class="btn btn-primary w-100">Жіберу</button></div></div></div>
 
     <div id="admin" class="section-page"><div class="container">
         <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Админ Панель</h3></div>
-        <div class="s-card mb-4"><h5>➕ Глоссарий қосу</h5><input type="text" id="glTerm" class="form-control mb-1" placeholder="Термин"><input type="text" id="glDef" class="form-control mb-2" placeholder="Анықтама"><button onclick="addGlossary()" class="btn btn-primary btn-sm">Қосу</button></div>
-        <div class="s-card"><h6>Сұрақтар:</h6><div id="adminQList"></div><hr><h6>Глоссарий тізімі:</h6><div id="adminGlList"></div></div>
+        <div class="s-card mb-4"><input type="text" id="glTerm" class="form-control mb-1" placeholder="Термін"><input type="text" id="glDef" class="form-control mb-2" placeholder="Анықтама"><button onclick="addGlossary()" class="btn btn-primary btn-sm">Сөздікке қосу</button></div>
+        <div class="s-card"><div id="adminQList"></div><hr><div id="adminGlList"></div></div>
     </div></div>
 
-    <div class="text-center py-4"><button onclick="enterAdmin()" class="btn btn-link text-muted" style="opacity:0.1; text-decoration:none;">Admin Access</button></div>
+    <div class="text-center py-4"><button onclick="enterAdmin()" class="btn btn-link text-muted" style="text-decoration:none; opacity:0.1">Admin Access</button></div>
 
     <script>
         const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
@@ -156,11 +141,12 @@
         }
         setInterval(updateTimer, 1000);
 
-        // --- THEME & NAV ---
+        // --- CORE ---
         function toggleTheme() {
-            const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.body.setAttribute('data-theme', theme);
-            document.getElementById('theme-btn').className = (theme === 'dark') ? 'fas fa-sun' : 'fas fa-moon';
+            const body = document.body;
+            const theme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', theme);
+            document.getElementById('theme-btn').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         }
         function openSection(id) { document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); if(id==='admin') renderAdminAll(); }
         function backToHome() { openSection('home'); }
@@ -171,12 +157,15 @@
         function renderTodo() { document.getElementById('todoList').innerHTML = get('u_todo').map(i => `<div class="list-item"><span class="${i.done?'todo-done':''}" onclick="toggleTodo(${i.id})" style="cursor:pointer">${i.t}</span><i class="fas fa-trash text-danger" onclick="del('u_todo',${i.id},renderTodo)"></i></div>`).join('') || "Жоспар бос."; }
 
         // --- GPA ---
-        function addGpaRow() { const row = document.createElement('div'); row.className='row g-2 mb-2'; row.innerHTML='<div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div>'; document.getElementById('gpa-rows').appendChild(row); }
+        function addGpaRow() { const row = document.createElement('div'); row.className = 'row g-2 mb-2'; row.innerHTML = '<div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div>'; document.getElementById('gpa-rows').appendChild(row); }
         function calculateAdvancedGPA() {
             let tp = 0, tc = 0;
             document.querySelectorAll('.gpa-score').forEach((s, i) => {
                 let score = parseFloat(s.value), credit = parseFloat(document.querySelectorAll('.gpa-credit')[i].value);
-                if (score && credit) { let g = score >= 90 ? 4.0 : score >= 80 ? 3.0 : score >= 70 ? 2.0 : 1.0; tp += g * credit; tc += credit; }
+                if (score && credit) {
+                    let g = score >= 90 ? 4.0 : score >= 80 ? 3.0 : score >= 70 ? 2.33 : 2.0;
+                    tp += g * credit; tc += credit;
+                }
             });
             document.getElementById('advancedGpaRes').innerText = "GPA: " + (tc > 0 ? (tp/tc).toFixed(2) : 0);
         }
@@ -185,23 +174,19 @@
         function saveNews() { let t = document.getElementById('newsInp').value, u = document.getElementById('urgentCheck').checked; if(!t) return; let n = get('u_news'); n.unshift({t, urgent: u, time: Date.now(), id: Date.now()}); store('u_news', n); renderNews(); backToHome(); }
         function renderNews() { document.getElementById('homeNews').innerHTML = get('u_news').slice(0,5).map(x => `<div class="list-item ${x.urgent?'urgent':''}"><div>${x.t}</div><i class="fas fa-times" onclick="del('u_news',${x.id},renderNews)"></i></div>`).join('') || "Хабарлама жоқ."; }
 
-        // --- SCHEDULE ---
-        function addSch() { let d = document.getElementById('day').value, s = document.getElementById('subj').value; if(!s) return; let l = get('u_sch'); l.push({d, s, id: Date.now()}); store('u_sch', l); renderSch(); }
+        // --- OTHER ---
+        function addSch() { let d=document.getElementById('day').value, s=document.getElementById('subj').value; if(!s) return; let l=get('u_sch'); l.push({d,s,id:Date.now()}); store('u_sch',l); renderSch(); }
         function renderSch() { document.getElementById('schList').innerHTML = get('u_sch').map(i => `<div class="list-item"><span><b>${i.d}:</b> ${i.s}</span><i class="fas fa-trash text-danger" onclick="del('u_sch',${i.id},renderSch)"></i></div>`).join(''); }
-
-        // --- GLOSSARY ---
-        function addGlossary() { let t=document.getElementById('glTerm').value, d=document.getElementById('glDef').value; if(!t||!d) return; let gl=get('u_gl'); gl.push({t,d,id:Date.now()}); store('u_gl', gl); renderGl(); }
-        function renderGl() { let gl=get('u_gl'); document.getElementById('glossaryView').innerHTML = gl.map(i => `<div class="mb-3"><b>${i.t}</b> - ${i.d}</div>`).join('') || "Бос."; document.getElementById('adminGlList').innerHTML = gl.map(i => `<div class="small py-1">${i.t} <i class="fas fa-trash text-danger float-end" onclick="del('u_gl',${i.id},renderGl)"></i></div>`).join(''); }
-
-        // --- ADMIN & ADVISOR ---
-        function sendQ() { let q=document.getElementById('anonQ').value; if(!q) return; let qs=get('u_qs'); qs.push({q, id:Date.now(), t: new Date().toLocaleString()}); store('u_qs', qs); alert("Жіберілді!"); document.getElementById('anonQ').value=""; backToHome(); }
+        function addGlossary() { let t=document.getElementById('glTerm').value, d=document.getElementById('glDef').value; if(!t||!d) return; let gl=get('u_gl'); gl.push({t,d,id:Date.now()}); store('u_gl',gl); renderGl(); }
+        function renderGl() { let gl=get('u_gl'); document.getElementById('glossaryView').innerHTML = gl.map(i => `<div class="mb-3"><b>${i.t}</b> - ${i.d}</div>`).join('') || "Сөздік бос."; document.getElementById('adminGlList').innerHTML = gl.map(i => `<div>${i.t} <i class="fas fa-trash text-danger float-end" onclick="del('u_gl',${i.id},renderGl)"></i></div>`).join(''); }
+        function sendQ() { let q=document.getElementById('anonQ').value; if(!q) return; let qs=get('u_qs'); qs.push({q, id:Date.now()}); store('u_qs',qs); alert("Жіберілді!"); backToHome(); }
         function enterAdmin() { if(prompt("Пароль:") === "admin123") openSection('admin'); }
-        function renderAdminAll() { document.getElementById('adminQList').innerHTML = get('u_qs').map(i => `<div class="alert alert-light border small">${i.q}<i class="fas fa-trash text-danger float-end" onclick="del('u_qs',${i.id},renderAdminAll)"></i></div>`).join('') || "Сұрақ жоқ."; renderGl(); }
-
+        function renderAdminAll() { document.getElementById('adminQList').innerHTML = get('u_qs').map(i => `<div class="small border-bottom py-1">${i.q} <i class="fas fa-trash text-danger float-end" onclick="del('u_qs',${i.id},renderAdminAll)"></i></div>`).join(''); renderGl(); }
         function del(k, id, cb) { store(k, get(k).filter(x => x.id !== id)); cb(); }
 
         window.onload = () => {
-            document.getElementById('daily-quote').innerText = "Бүгінгі күніңе сәттілік тілеймін! ✨";
+            const quotes = ["Бүгін кітапханаға баруды ұмытпа! 📚", "Сәттілік! Сенің қолыңнан бәрі келеді. ✨", "Кішкентай қадамдар үлкен жеңіске әкеледі. 🚶‍♂️"];
+            document.getElementById('daily-quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
             updateTimer(); renderNews(); renderSch(); renderGl(); renderTodo();
         };
     </script>
