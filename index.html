@@ -6,203 +6,191 @@
     <title>UniStep - Студенттік Портал</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light-bg: #f8f9fa;
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); }
-        
-        /* Navbar стилі */
-        .navbar { background-color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        
-        /* Hero Section - Басты беттің көркі */
-        .hero-mini { 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white; padding: 40px 0; margin-bottom: 30px;
-            border-radius: 0 0 30px 30px;
-        }
-
-        /* Навигациялық карталар */
-        .nav-card {
-            border: none; border-radius: 15px; transition: 0.3s;
-            cursor: pointer; background: white; text-align: center; padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-        .nav-card i { font-size: 2rem; color: var(--secondary); margin-bottom: 10px; }
-
-        /* Бөлімдерді жасыру/көрсету */
-        .section-content { display: none; }
-        .active-section { display: block; animation: fadeIn 0.5s; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root { --primary: #2c3e50; --secondary: #3498db; --accent: #e74c3c; }
+        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; }
+        .hero-mini { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 40px 0; border-radius: 0 0 30px 30px; margin-bottom: 30px; }
+        .section-content { display: none; animation: fadeIn 0.4s ease; }
+        .active-section { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card-custom { border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .schedule-card { border-left: 5px solid var(--secondary); margin-bottom: 10px; }
+        .announcement-card { border-left: 5px solid var(--accent); }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background: var(--primary);">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#" onclick="showSection('home') text-white"><i class="fas fa-walking"></i> UniStep</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand fw-bold" href="#" onclick="showSection('home')"><i class="fas fa-walking"></i> UniStep</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('home')">Басты бет</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('academic')">Академиялық</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('campus')">Кампус</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('schedule')">Сабақ кестесі</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('news')">Хабарландыру</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('advisor')">Advisor</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <header class="hero-mini text-center">
-        <div class="container">
-            <h2 id="section-title">Қош келдіңіз, Студент! 👋</h2>
-            <p id="section-subtitle">Сіздің цифрлық көмекшіңіз әрқашан қасыңызда.</p>
-        </div>
+        <h2 id="section-title">Қош келдіңіз! 👋</h2>
+        <p id="section-subtitle">Жеке оқу көмекшіңіз</p>
     </header>
 
-    <div class="container mb-5">
+    <div class="container pb-5">
         
-        <div id="home" class="section-content active-section">
-            <div class="row g-4">
-                <div class="col-md-4" onclick="showSection('academic')">
-                    <div class="nav-card">
-                        <i class="fas fa-graduation-cap"></i>
-                        <h5>Оқу процесі</h5>
-                        <p class="small text-muted">GPA есептеу және терминдер</p>
-                    </div>
-                </div>
-                <div class="col-md-4" onclick="showSection('campus')">
-                    <div class="nav-card">
-                        <i class="fas fa-university"></i>
-                        <h5>Кампус тынысы</h5>
-                        <p class="small text-muted">Карта және хабарландырулар</p>
-                    </div>
-                </div>
-                <div class="col-md-4" onclick="showSection('advisor')">
-                    <div class="nav-card">
-                        <i class="fas fa-comments"></i>
-                        <h5>Digital Advisor</h5>
-                        <p class="small text-muted">Кеңес алу және сұрақ қою</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-5">
-                <h4 class="mb-3">🔔 Соңғы жаңалықтар</h4>
-                <div class="alert alert-info border-0 shadow-sm rounded-4">
-                    <strong>Жаңалық:</strong> Тіркеу апталығы басталды. Эдвайзермен хабарласуды ұмытпаңыз!
-                </div>
-            </div>
-        </div>
-
-        <div id="academic" class="section-content">
-            <div class="card border-0 shadow-sm p-4 mb-4">
-                <h3><i class="fas fa-calculator text-danger"></i> GPA Калькулятор</h3>
-                <hr>
-                <div class="row g-3">
-                    <div class="col-md-5">
-                        <label>Пән бағасы (0-100):</label>
-                        <input type="number" id="scoreInput" class="form-control" placeholder="М: 92">
-                    </div>
-                    <div class="col-md-5">
-                        <label>Кредит саны:</label>
-                        <input type="number" id="creditInput" class="form-control" placeholder="М: 3">
-                    </div>
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button onclick="calculateGPA()" class="btn btn-primary w-100">Есептеу</button>
-                    </div>
-                </div>
-                <div id="gpaResult" class="mt-3 fw-bold text-center"></div>
-            </div>
-
-            <div class="card border-0 shadow-sm p-4">
-                <h3><i class="fas fa-book-alphabet text-primary"></i> Студенттік Глоссарий</h3>
-                <div class="list-group list-group-flush mt-3">
-                    <div class="list-group-item"><strong>GPA</strong> - Орташа үлгерім көрсеткіші.</div>
-                    <div class="list-group-item"><strong>Prerequisite</strong> - Пәнді оқу үшін алдын ала білу керек пән.</div>
-                    <div class="list-group-item"><strong>Syllabus</strong> - Пәннің "төлқұжаты" (жоспары).</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="campus" class="section-content">
+        <div id="schedule" class="section-content">
             <div class="row">
-                <div class="col-md-7">
-                    <div class="card border-0 shadow-sm p-4 h-100">
-                        <h3><i class="fas fa-map-marked-alt"></i> Университет Картасы</h3>
-                        <div class="bg-light d-flex align-items-center justify-content-center mt-3" style="height: 300px; border-radius: 15px;">
-                            <p class="text-muted">[Мұнда интерактивті карта немесе сурет болады]</p>
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 mb-4">
+                        <h5>➕ Жаңа сабақ қосу</h5>
+                        <div class="mb-2">
+                            <label class="small">Күн:</label>
+                            <select id="schDay" class="form-select">
+                                <option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option>
+                                <option>Бейсенбі</option><option>Жұма</option>
+                            </select>
                         </div>
+                        <div class="mb-2">
+                            <label class="small">Уақыты мен Пән:</label>
+                            <input type="text" id="schSubject" class="form-control" placeholder="09:00 - Математика">
+                        </div>
+                        <button onclick="addSchedule()" class="btn btn-primary w-100 mt-2">Қосу</button>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="card border-0 shadow-sm p-4 h-100 text-white bg-dark">
-                        <h3><i class="fas fa-clock"></i> Жұмыс кестесі</h3>
-                        <ul class="list-unstyled mt-3">
-                            <li>📍 Кітапхана: 09:00 - 20:00</li>
-                            <li>📍 Асхана: 08:30 - 17:00</li>
-                            <li>📍 Коворкинг: 24/7</li>
-                        </ul>
-                    </div>
+                <div class="col-md-8">
+                    <div id="scheduleList" class="row g-3">
+                        </div>
                 </div>
             </div>
+        </div>
+
+        <div id="news" class="section-content">
+            <div class="card card-custom p-4 mb-4">
+                <h5>📣 Хабарландыру жазу</h5>
+                <textarea id="newsText" class="form-control mb-2" placeholder="Не болды? (Мысалы: Кілт тауып алдым)"></textarea>
+                <button onclick="addNews()" class="btn btn-accent text-white" style="background: var(--accent);">Жариялау</button>
+            </div>
+            <div id="newsList">
+                </div>
         </div>
 
         <div id="advisor" class="section-content">
-            <div class="card border-0 shadow p-4 mx-auto" style="max-width: 600px;">
-                <h3 class="text-center">👨‍🏫 Digital Advisor</h3>
-                <p class="text-center text-muted">Сұрақтарыңызға анонимді түрде жауап алыңыз</p>
-                <textarea class="form-control mb-3" rows="4" placeholder="Мысалы: Жатақханаға қалай тіркелемін?"></textarea>
-                <button class="btn btn-primary w-100 py-2" onclick="alert('Сұрақ жіберілді!')">Жіберу</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-custom p-4 bg-white">
+                        <h3>👨‍🏫 Эдвайзерге сұрақ</h3>
+                        <p class="text-muted small">Сұрағыңыз анонимді түрде "Сұрақтар банкіне" түседі.</p>
+                        <textarea id="anonQuestion" class="form-control mb-3" rows="4" placeholder="Сұрағыңызды жазыңыз..."></textarea>
+                        <button onclick="sendQuestion()" class="btn btn-primary w-100">Жіберу</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>📥 Келіп түскен сұрақтар (Админ/Эдвайзер көреді)</h5>
+                    <div id="questionBank" class="mt-3">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="home" class="section-content active-section">
+            <div class="row g-4 text-center">
+                <div class="col-md-4" onclick="showSection('schedule')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-calendar-alt fa-2x mb-2"></i><h6>Күнделікті кесте</h6></div></div>
+                <div class="col-md-4" onclick="showSection('news')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-bullhorn fa-2x mb-2"></i><h6>Хабарландырулар</h6></div></div>
+                <div class="col-md-4" onclick="showSection('advisor')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-user-shield fa-2x mb-2"></i><h6>Анонимді көмек</h6></div></div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // Бөлімдерді ауыстыру функциясы
-        function showSection(sectionId) {
-            // Барлық бөлімдерді жасыру
-            document.querySelectorAll('.section-content').forEach(section => {
-                section.classList.remove('active-section');
-            });
-
-            // Керекті бөлімді көрсету
-            document.getElementById(sectionId).classList.add('active-section');
-
-            // Header мәтінін өзгерту
-            const titles = {
-                'home': 'Қош келдіңіз, Студент! 👋',
-                'academic': 'Академиялық ресурстар 📚',
-                'campus': 'Кампус бойынша нұсқаулық 🗺️',
-                'advisor': 'Кеңесшімен байланыс 💬'
-            };
-            document.getElementById('section-title').innerText = titles[sectionId];
+        function showSection(id) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+            const titles = { 'home': 'Қош келдіңіз! 👋', 'schedule': 'Менің кестем 📅', 'news': 'Хабарландырулар тақтасы 📢', 'advisor': 'Сұрақ-жауап бөлімі ❓' };
+            document.getElementById('section-title').innerText = titles[id];
         }
 
-        // GPA Есептеу
-        function calculateGPA() {
-            const score = document.getElementById('scoreInput').value;
-            const res = document.getElementById('gpaResult');
-            if(!score) return;
-            
-            let gpa = 0;
-            if(score >= 95) gpa = 4.0;
-            else if(score >= 90) gpa = 3.67;
-            else if(score >= 80) gpa = 3.0;
-            else gpa = 2.0;
-
-            res.innerHTML = `<span class="badge bg-success p-2">GPA: ${gpa}</span>`;
+        // --- САБАҚ КЕСТЕСІ ЛОГИКАСЫ ---
+        function addSchedule() {
+            const day = document.getElementById('schDay').value;
+            const sub = document.getElementById('schSubject').value;
+            if(!sub) return;
+            const item = { day, sub };
+            let list = JSON.parse(localStorage.getItem('mySchedule') || '[]');
+            list.push(item);
+            localStorage.setItem('mySchedule', JSON.stringify(list));
+            renderSchedule();
+            document.getElementById('schSubject').value = "";
         }
+
+        function renderSchedule() {
+            const list = JSON.parse(localStorage.getItem('mySchedule') || '[]');
+            const container = document.getElementById('scheduleList');
+            container.innerHTML = list.map((item, index) => `
+                <div class="col-md-6">
+                    <div class="card card-custom p-3 schedule-card">
+                        <small class="text-primary fw-bold">${item.day}</small>
+                        <div>${item.sub}</div>
+                        <button class="btn btn-sm text-danger text-end" onclick="deleteItem('mySchedule', ${index}, renderSchedule)">Өшіру</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- ХАБАРЛАНДЫРУ ЛОГИКАСЫ ---
+        function addNews() {
+            const text = document.getElementById('newsText').value;
+            if(!text) return;
+            let news = JSON.parse(localStorage.getItem('myNews') || '[]');
+            news.unshift({ text, date: new Date().toLocaleString() });
+            localStorage.setItem('myNews', JSON.stringify(news));
+            renderNews();
+            document.getElementById('newsText').value = "";
+        }
+
+        function renderNews() {
+            const news = JSON.parse(localStorage.getItem('myNews') || '[]');
+            document.getElementById('newsList').innerHTML = news.map(n => `
+                <div class="card card-custom p-3 announcement-card mb-2">
+                    <p class="mb-1">${n.text}</p>
+                    <small class="text-muted">${n.date}</small>
+                </div>
+            `).join('');
+        }
+
+        // --- АНОНИМДІ СҰРАҚТАР ---
+        function sendQuestion() {
+            const q = document.getElementById('anonQuestion').value;
+            if(!q) return;
+            let qs = JSON.parse(localStorage.getItem('anonQs') || '[]');
+            qs.unshift({ q, time: new Date().toLocaleTimeString() });
+            localStorage.setItem('anonQs', JSON.stringify(qs));
+            renderQuestions();
+            document.getElementById('anonQuestion').value = "";
+            alert("Сұрағыңыз сәтті жіберілді!");
+        }
+
+        function renderQuestions() {
+            const qs = JSON.parse(localStorage.getItem('anonQs') || '[]');
+            document.getElementById('questionBank').innerHTML = qs.map(item => `
+                <div class="alert alert-light border shadow-sm">
+                    <strong>Сұрақ:</strong> ${item.q} <br> <small class="text-muted">Уақыты: ${item.time}</small>
+                </div>
+            `).join('');
+        }
+
+        function deleteItem(key, index, callback) {
+            let data = JSON.parse(localStorage.getItem(key));
+            data.splice(index, 1);
+            localStorage.setItem(key, JSON.stringify(data));
+            callback();
+        }
+
+        // Бет жүктелгенде деректерді шығару
+        window.onload = () => { renderSchedule(); renderNews(); renderQuestions(); };
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
