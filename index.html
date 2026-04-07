@@ -3,181 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniStep - Студенттік Портал</title>
+    <title>UniStep - Барлығы бір жерде</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #2c3e50; --secondary: #3498db; --accent: #e74c3c; }
-        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; }
-        .hero-mini { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 40px 0; border-radius: 0 0 30px 30px; margin-bottom: 30px; }
-        .section-content { display: none; animation: fadeIn 0.4s ease; }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background: var(--primary); }
+        .hero-mini { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px 0; border-bottom-right-radius: 40px; }
+        .section-content { display: none; animation: fadeIn 0.3s; }
         .active-section { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .card-custom { border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
-        .schedule-card { border-left: 5px solid var(--secondary); margin-bottom: 10px; }
-        .announcement-card { border-left: 5px solid var(--accent); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card-custom { border: none; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .nav-link { cursor: pointer; }
+        .admin-btn { position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 10px; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background: var(--primary);">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#" onclick="showSection('home')"><i class="fas fa-walking"></i> UniStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('home')">Басты бет</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('schedule')">Сабақ кестесі</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('news')">Хабарландыру</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('advisor')">Advisor</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showSection('home')">Басты бет</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showSection('academic')">Оқу бөлімі</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showSection('schedule')">Кесте</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="showSection('campus')">Кампус</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <header class="hero-mini text-center">
-        <h2 id="section-title">Қош келдіңіз! 👋</h2>
-        <p id="section-subtitle">Жеке оқу көмекшіңіз</p>
+        <h2 id="section-title">Қайырлы күн!</h2>
+        <p id="section-subtitle">UniStep — сіздің цифрлық менторыңыз</p>
     </header>
 
     <div class="container pb-5">
         
+        <div id="home" class="section-content active-section">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>📢 Соңғы хабарландырулар</h4>
+                    <div id="homeNewsList" class="mb-4">
+                        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom p-3 bg-white">
+                        <h5>❓ Эдвайзерге сұрақ</h5>
+                        <textarea id="anonQuestion" class="form-control mb-2" rows="3" placeholder="Сұрағыңыз анонимді түрде жетеді..."></textarea>
+                        <button onclick="sendQuestion()" class="btn btn-primary w-100 btn-sm">Жіберу</button>
+                    </div>
+                    <div class="card card-custom p-3">
+                        <h6>📍 Жедел сілтемелер</h6>
+                        <button class="btn btn-outline-secondary btn-sm mb-2 w-100" onclick="showSection('academic')">GPA Есептеу</button>
+                        <button class="btn btn-outline-secondary btn-sm w-100" onclick="showSection('schedule')">Сабақ қосу</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="academic" class="section-content">
+            <div class="card card-custom p-4 shadow">
+                <h3><i class="fas fa-calculator text-danger"></i> GPA Калькулятор</h3>
+                <div class="row g-3">
+                    <div class="col-md-5"><input type="number" id="userScore" class="form-control" placeholder="Баға (0-100)"></div>
+                    <div class="col-md-5"><input type="number" id="userCredits" class="form-control" placeholder="Кредит саны"></div>
+                    <div class="col-md-2"><button onclick="calculateGPA()" class="btn btn-danger w-100">Есептеу</button></div>
+                </div>
+                <div id="gpaResult" class="mt-3 text-center h5"></div>
+            </div>
+
+            <div class="card card-custom p-4">
+                <h4><i class="fas fa-book text-primary"></i> Студенттік Глоссарий</h4>
+                <div class="row">
+                    <div class="col-md-6"><b>GPA:</b> Орташа үлгерім балы.</div>
+                    <div class="col-md-6"><b>Силлабус:</b> Пәннің оқу жоспары.</div>
+                    <div class="col-md-6"><b>Эдвайзер:</b> Академиялық кеңесші.</div>
+                    <div class="col-md-6"><b>Retake:</b> Пәнді қайта оқу.</div>
+                </div>
+            </div>
+        </div>
+
         <div id="schedule" class="section-content">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card card-custom p-4 mb-4">
-                        <h5>➕ Жаңа сабақ қосу</h5>
-                        <div class="mb-2">
-                            <label class="small">Күн:</label>
-                            <select id="schDay" class="form-select">
-                                <option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option>
-                                <option>Бейсенбі</option><option>Жұма</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label class="small">Уақыты мен Пән:</label>
-                            <input type="text" id="schSubject" class="form-control" placeholder="09:00 - Математика">
-                        </div>
-                        <button onclick="addSchedule()" class="btn btn-primary w-100 mt-2">Қосу</button>
+                    <div class="card card-custom p-3">
+                        <h5>Сабақ қосу</h5>
+                        <select id="schDay" class="form-select mb-2">
+                            <option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option>
+                            <option>Бейсенбі</option><option>Жұма</option>
+                        </select>
+                        <input type="text" id="schSubject" class="form-control mb-2" placeholder="09:00 - Физика">
+                        <button onclick="addSchedule()" class="btn btn-primary w-100">Сақтау</button>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div id="scheduleList" class="row g-3">
-                        </div>
-                </div>
+                <div id="scheduleList" class="col-md-8 row"></div>
             </div>
         </div>
 
-        <div id="news" class="section-content">
-            <div class="card card-custom p-4 mb-4">
-                <h5>📣 Хабарландыру жазу</h5>
-                <textarea id="newsText" class="form-control mb-2" placeholder="Не болды? (Мысалы: Кілт тауып алдым)"></textarea>
-                <button onclick="addNews()" class="btn btn-accent text-white" style="background: var(--accent);">Жариялау</button>
+        <div id="campus" class="section-content">
+            <div class="card card-custom p-4">
+                <h4><i class="fas fa-map-marked-alt"></i> Университет Картасы</h4>
+                <div class="bg-light text-center py-5 rounded"> [Карта кескіні осында] </div>
             </div>
-            <div id="newsList">
-                </div>
-        </div>
-
-        <div id="advisor" class="section-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card card-custom p-4 bg-white">
-                        <h3>👨‍🏫 Эдвайзерге сұрақ</h3>
-                        <p class="text-muted small">Сұрағыңыз анонимді түрде "Сұрақтар банкіне" түседі.</p>
-                        <textarea id="anonQuestion" class="form-control mb-3" rows="4" placeholder="Сұрағыңызды жазыңыз..."></textarea>
-                        <button onclick="sendQuestion()" class="btn btn-primary w-100">Жіберу</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h5>📥 Келіп түскен сұрақтар (Админ/Эдвайзер көреді)</h5>
-                    <div id="questionBank" class="mt-3">
-                        </div>
-                </div>
+            <div class="card card-custom p-4">
+                <h4><i class="fas fa-bullhorn text-warning"></i> Жаңа хабарландыру жариялау</h4>
+                <textarea id="newsInput" class="form-control mb-2" placeholder="Студенттерге не айтқыңыз келеді?"></textarea>
+                <button onclick="addNews()" class="btn btn-warning">Жариялау</button>
             </div>
         </div>
 
-        <div id="home" class="section-content active-section">
-            <div class="row g-4 text-center">
-                <div class="col-md-4" onclick="showSection('schedule')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-calendar-alt fa-2x mb-2"></i><h6>Күнделікті кесте</h6></div></div>
-                <div class="col-md-4" onclick="showSection('news')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-bullhorn fa-2x mb-2"></i><h6>Хабарландырулар</h6></div></div>
-                <div class="col-md-4" onclick="showSection('advisor')"><div class="card card-custom p-4 shadow-sm"><i class="fas fa-user-shield fa-2x mb-2"></i><h6>Анонимді көмек</h6></div></div>
+        <div id="adminPanel" class="section-content">
+            <div class="card card-custom p-4 border-danger">
+                <h4>🔒 Админ-панель: Келіп түскен сұрақтар</h4>
+                <div id="questionList"></div>
+                <button onclick="showSection('home')" class="btn btn-secondary mt-3">Шығу</button>
             </div>
         </div>
 
     </div>
 
+    <button class="admin-btn btn btn-light" onclick="adminLogin()">Admin</button>
+
     <script>
         function showSection(id) {
             document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active-section'));
             document.getElementById(id).classList.add('active-section');
-            const titles = { 'home': 'Қош келдіңіз! 👋', 'schedule': 'Менің кестем 📅', 'news': 'Хабарландырулар тақтасы 📢', 'advisor': 'Сұрақ-жауап бөлімі ❓' };
+            const titles = { 'home': 'Басты бет', 'academic': 'Оқу бөлімі', 'schedule': 'Кесте', 'campus': 'Кампус', 'adminPanel': 'Басқару' };
             document.getElementById('section-title').innerText = titles[id];
         }
 
-        // --- САБАҚ КЕСТЕСІ ЛОГИКАСЫ ---
+        // --- GPA КҮРДЕЛІ ЕУ ---
+        function calculateGPA() {
+            let score = document.getElementById('userScore').value;
+            let res = document.getElementById('gpaResult');
+            let gpa = score >= 90 ? 4.0 : (score >= 80 ? 3.0 : 2.0);
+            res.innerHTML = `Нәтиже: <b>${gpa}</b>`;
+        }
+
+        // --- САБАҚ КЕСТЕСІ ---
         function addSchedule() {
-            const day = document.getElementById('schDay').value;
-            const sub = document.getElementById('schSubject').value;
+            let sub = document.getElementById('schSubject').value;
+            let day = document.getElementById('schDay').value;
             if(!sub) return;
-            const item = { day, sub };
-            let list = JSON.parse(localStorage.getItem('mySchedule') || '[]');
-            list.push(item);
-            localStorage.setItem('mySchedule', JSON.stringify(list));
+            let list = JSON.parse(localStorage.getItem('uni_sch') || '[]');
+            list.push({day, sub});
+            localStorage.setItem('uni_sch', JSON.stringify(list));
             renderSchedule();
-            document.getElementById('schSubject').value = "";
         }
 
         function renderSchedule() {
-            const list = JSON.parse(localStorage.getItem('mySchedule') || '[]');
-            const container = document.getElementById('scheduleList');
-            container.innerHTML = list.map((item, index) => `
-                <div class="col-md-6">
-                    <div class="card card-custom p-3 schedule-card">
-                        <small class="text-primary fw-bold">${item.day}</small>
-                        <div>${item.sub}</div>
-                        <button class="btn btn-sm text-danger text-end" onclick="deleteItem('mySchedule', ${index}, renderSchedule)">Өшіру</button>
+            let list = JSON.parse(localStorage.getItem('uni_sch') || '[]');
+            document.getElementById('scheduleList').innerHTML = list.map((item, i) => `
+                <div class="col-md-6 mb-2">
+                    <div class="card p-2 border-start border-primary border-4 shadow-sm">
+                        <small class="text-primary">${item.day}</small>
+                        <div>${item.sub} <i class="fas fa-times text-danger float-end" onclick="deleteItem('uni_sch', ${i}, renderSchedule)" style="cursor:pointer"></i></div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // --- ХАБАРЛАНДЫРУ ЛОГИКАСЫ ---
+        // --- ХАБАРЛАНДЫРУЛАР (Басты бетке шығару) ---
         function addNews() {
-            const text = document.getElementById('newsText').value;
+            let text = document.getElementById('newsInput').value;
             if(!text) return;
-            let news = JSON.parse(localStorage.getItem('myNews') || '[]');
-            news.unshift({ text, date: new Date().toLocaleString() });
-            localStorage.setItem('myNews', JSON.stringify(news));
+            let news = JSON.parse(localStorage.getItem('uni_news') || '[]');
+            news.unshift({text, date: new Date().toLocaleString()});
+            localStorage.setItem('uni_news', JSON.stringify(news));
             renderNews();
-            document.getElementById('newsText').value = "";
+            showSection('home');
         }
 
         function renderNews() {
-            const news = JSON.parse(localStorage.getItem('myNews') || '[]');
-            document.getElementById('newsList').innerHTML = news.map(n => `
-                <div class="card card-custom p-3 announcement-card mb-2">
+            let news = JSON.parse(localStorage.getItem('uni_news') || '[]');
+            let html = news.map(n => `
+                <div class="card card-custom p-3 border-start border-warning border-4">
                     <p class="mb-1">${n.text}</p>
                     <small class="text-muted">${n.date}</small>
                 </div>
             `).join('');
+            document.getElementById('homeNewsList').innerHTML = html || "<p class="text-muted">Әзірге хабарландыру жоқ.</p>";
         }
 
-        // --- АНОНИМДІ СҰРАҚТАР ---
+        // --- АНОНИМДІ СҰРАҚТАР (ЖАСЫРЫН) ---
         function sendQuestion() {
-            const q = document.getElementById('anonQuestion').value;
+            let q = document.getElementById('anonQuestion').value;
             if(!q) return;
-            let qs = JSON.parse(localStorage.getItem('anonQs') || '[]');
-            qs.unshift({ q, time: new Date().toLocaleTimeString() });
-            localStorage.setItem('anonQs', JSON.stringify(qs));
-            renderQuestions();
+            let qs = JSON.parse(localStorage.getItem('uni_qs') || '[]');
+            qs.push({q, time: new Date().toLocaleString()});
+            localStorage.setItem('uni_qs', JSON.stringify(qs));
             document.getElementById('anonQuestion').value = "";
-            alert("Сұрағыңыз сәтті жіберілді!");
+            alert("Сұрақ жіберілді! Оны тек Адвайзер көре алады.");
         }
 
-        function renderQuestions() {
-            const qs = JSON.parse(localStorage.getItem('anonQs') || '[]');
-            document.getElementById('questionBank').innerHTML = qs.map(item => `
-                <div class="alert alert-light border shadow-sm">
-                    <strong>Сұрақ:</strong> ${item.q} <br> <small class="text-muted">Уақыты: ${item.time}</small>
+        function adminLogin() {
+            let pass = prompt("Админ құпия сөзін енгізіңіз (мысалы: 123):");
+            if(pass === "123") {
+                renderAdminQuestions();
+                showSection('adminPanel');
+            } else {
+                alert("Құпия сөз қате!");
+            }
+        }
+
+        function renderAdminQuestions() {
+            let qs = JSON.parse(localStorage.getItem('uni_qs') || '[]');
+            document.getElementById('questionList').innerHTML = qs.map(item => `
+                <div class="alert alert-info">
+                    <b>Сұрақ:</b> ${item.q} <br> <small>${item.time}</small>
                 </div>
             `).join('');
         }
@@ -189,8 +228,7 @@
             callback();
         }
 
-        // Бет жүктелгенде деректерді шығару
-        window.onload = () => { renderSchedule(); renderNews(); renderQuestions(); };
+        window.onload = () => { renderNews(); renderSchedule(); };
     </script>
 </body>
 </html>
