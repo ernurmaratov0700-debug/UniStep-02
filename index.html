@@ -18,9 +18,11 @@
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); transition: 0.3s; margin: 0; padding-bottom: 30px; }
         
         .top-nav { background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .hero { min-height: 30vh; background: linear-gradient(135deg, #2a3a50 30%, var(--secondary) 90%); color: white; border-radius: 0 0 40px 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        .hero { min-height: 35vh; background: linear-gradient(135deg, #2a3a50 30%, var(--secondary) 90%); color: white; border-radius: 0 0 40px 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
         
-        .section-page { display: none; animation: fadeIn 0.4s ease; padding: 20px 15px; }
+        .timer-box { display: none; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 20px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); width: fit-content; margin-left: auto; margin-right: auto; }
+
+        .section-page { display: none; animation: fadeIn 0.4s ease; padding: 25px 15px; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -31,12 +33,10 @@
         .s-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
         .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
         
-        .timer-box { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 20px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); width: fit-content; margin-left: auto; margin-right: auto; }
-        
         .link-item { display: flex; align-items: center; padding: 15px; background: var(--bg); border-radius: 15px; margin-bottom: 12px; text-decoration: none; color: var(--text); border: 1px solid rgba(0,0,0,0.05); }
-        .link-item:hover { background: #e2e8f0; }
         .list-item { border-left: 4px solid var(--secondary); padding: 10px 15px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .todo-done { text-decoration: line-through; opacity: 0.6; }
+        .urgent { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.1); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -48,30 +48,30 @@
         </div>
         <div class="hero">
             <div class="w-100">
-                <h2 class="fw-bold">UniStep: Ментор</h2>
-                <div class="timer-box">
+                <h2 class="fw-bold">UniStep: Цифрлық Ментор</h2>
+                <p id="daily-quote" class="mt-2" style="font-size: 1rem; opacity: 0.9;"></p>
+                <div id="timer-container" class="timer-box">
                     <div class="small mb-1">Сессияға қалды:</div>
-                    <div id="countdown" class="h5 fw-bold mb-0">Кесте бөлімінен күн таңдаңыз</div>
+                    <div id="countdown" class="h5 fw-bold mb-0"></div>
                 </div>
             </div>
         </div>
 
         <div class="container mt-4">
             <div class="row g-3">
-                <div class="col-4" onclick="openSection('schedule')"><div class="stat-card"><i class="fas fa-calendar-alt text-primary fa-lg"></i><div class="small fw-bold">Кесте</div></div></div>
-                <div class="col-4" onclick="openSection('todo')"><div class="stat-card"><i class="fas fa-tasks text-success fa-lg"></i><div class="small fw-bold">Жоспар</div></div></div>
-                <div class="col-4" onclick="openSection('academic')"><div class="stat-card"><i class="fas fa-chart-line text-info fa-lg"></i><div class="small fw-bold">GPA</div></div></div>
+                <div class="col-4" onclick="openSection('schedule')"><div class="stat-card"><i class="fas fa-calendar-alt text-primary fa-lg"></i><div class="small fw-bold mt-1">Кесте</div></div></div>
+                <div class="col-4" onclick="openSection('academic')"><div class="stat-card"><i class="fas fa-chart-line text-success fa-lg"></i><div class="small fw-bold mt-1">GPA</div></div></div>
+                <div class="col-4" onclick="openSection('map')"><div class="stat-card"><i class="fas fa-map-marked-alt text-info fa-lg"></i><div class="small fw-bold mt-1">Карта</div></div></div>
                 
-                <div class="col-4" onclick="openSection('links-page')"><div class="stat-card"><i class="fas fa-link text-warning fa-lg"></i><div class="small fw-bold">Сілтеме</div></div></div>
-                <div class="col-4" onclick="openSection('glossary')"><div class="stat-card"><i class="fas fa-book text-secondary fa-lg"></i><div class="small fw-bold">Сөздік</div></div></div>
-                <div class="col-4" onclick="openSection('map')"><div class="stat-card"><i class="fas fa-map-marked-alt text-danger fa-lg"></i><div class="small fw-bold">Карта</div></div></div>
+                <div class="col-4" onclick="openSection('links-page')"><div class="stat-card"><i class="fas fa-link text-warning fa-lg"></i><div class="small fw-bold mt-1">Сілтеме</div></div></div>
+                <div class="col-4" onclick="openSection('glossary')"><div class="stat-card"><i class="fas fa-book text-secondary fa-lg"></i><div class="small fw-bold mt-1">Сөздік</div></div></div>
+                <div class="col-4" onclick="openSection('news-write')"><div class="stat-card"><i class="fas fa-bullhorn text-warning fa-lg"></i><div class="small fw-bold mt-1">Хабар</div></div></div>
                 
-                <div class="col-4" onclick="openSection('news-write')"><div class="stat-card"><i class="fas fa-bullhorn text-primary fa-lg"></i><div class="small fw-bold">Хабар</div></div></div>
-                <div class="col-4" onclick="openSection('advisor')"><div class="stat-card"><i class="fas fa-user-tie text-dark fa-lg"></i><div class="small fw-bold">Advisor</div></div></div>
+                <div class="col-4 offset-4" onclick="openSection('advisor')"><div class="stat-card"><i class="fas fa-user-tie text-danger fa-lg"></i><div class="small fw-bold mt-1">Advisor</div></div></div>
             </div>
             
-            <div class="s-card mt-4">
-                <h6 class="fw-bold mb-3"><i class="fas fa-newspaper me-2 text-primary"></i> Соңғы жаңалықтар</h6>
+            <div class="s-card mt-4 mb-5">
+                <h5 class="fw-bold mb-3"><i class="fas fa-newspaper me-2 text-primary"></i> Хабарландырулар</h5>
                 <div id="homeNews"></div>
             </div>
         </div>
@@ -96,20 +96,13 @@
                 <input type="datetime-local" id="session-input" class="form-control">
                 <button onclick="saveSession()" class="btn btn-warning text-white fw-bold">Сақтау</button>
             </div>
-            <small class="text-muted mt-2 d-block">Күнді таңдаған соң, ол басты беттегі таймерде көрінеді.</small>
         </div>
 
         <div class="s-card mb-3">
             <h6 class="fw-bold">Сабақ қосу</h6>
-            <div class="input-group"><select id="day" class="form-select"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select><input type="text" id="subj" class="form-control" placeholder="Пән мен уақыт"><button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button></div>
+            <div class="input-group"><select id="day" class="form-select"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select><input type="text" id="subj" class="form-control" placeholder="Уақыты: Пән"><button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button></div>
         </div>
         <div id="schList"></div>
-    </div></div>
-
-    <div id="todo" class="section-page"><div class="container">
-        <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жоспар</h3></div>
-        <div class="s-card mb-3"><div class="input-group"><input type="text" id="todoInp" class="form-control" placeholder="Не істеу керек?"><button onclick="addTodo()" class="btn btn-success"><i class="fas fa-plus"></i></button></div></div>
-        <div id="todoList"></div>
     </div></div>
 
     <div id="academic" class="section-page"><div class="container">
@@ -117,14 +110,14 @@
         <div class="s-card">
             <div id="gpa-rows"><div class="row g-2 mb-2"><div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div></div></div>
             <button onclick="addGpaRow()" class="btn btn-outline-secondary btn-sm mb-3 w-100">+ Пән қосу</button>
-            <button onclick="calculateAdvancedGPA()" class="btn btn-primary w-100">Есептеу</button>
+            <button onclick="calculateAdvancedGPA()" class="btn btn-primary w-100">GPA Есептеу</button>
             <div id="advancedGpaRes" class="mt-3 text-center h3 fw-bold text-success"></div>
         </div>
     </div></div>
 
-    <div id="map" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div><div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2564.444747065096!2d82.6074211!3d49.9655459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42eb4595f9c4909f%3A0x7d02e3c0353c7c22!2z0JLQmtCjINC40LzQtdC90Lgg0KEuINCQ0LzQsNC90LbQvtC70L7QstCw!5e0!3m2!1skk!2skz!4v1700000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div></div></div>
+    <div id="map" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div><div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2565.4187053594!2d82.607421!3d49.951119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42eb45a6c3f3f3f3%3A0x1c1c1c1c1c1c1c1c!2sVKU!5e0!3m2!1skk!2skz!4v1" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div></div></div>
     <div id="glossary" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Сөздік</h3></div><div id="glossaryView" class="s-card"></div></div></div>
-    <div id="news-write" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жазу</h3></div><div class="s-card"><textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Хабарлама..."></textarea><button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button></div></div></div>
+    <div id="news-write" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жазу</h3></div><div class="s-card"><textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Хабарлама..."></textarea><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" id="urgentCheck"><label class="form-check-label" for="urgentCheck">⚠️ Шұғыл</label></div><button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button></div></div></div>
     <div id="advisor" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Advisor</h3></div><div class="s-card"><h5>Анонимді сұрақ</h5><textarea id="anonQ" class="form-control mb-3" rows="4"></textarea><button onclick="sendQ()" class="btn btn-primary w-100">Жіберу</button></div></div></div>
     <div id="admin" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Админ</h3></div><div class="s-card mb-4"><input type="text" id="glTerm" class="form-control mb-1" placeholder="Термін"><input type="text" id="glDef" class="form-control mb-2" placeholder="Анықтама"><button onclick="addGlossary()" class="btn btn-primary btn-sm">Қосу</button></div><div id="adminQList"></div></div></div>
 
@@ -134,34 +127,49 @@
         const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
         const get = (k) => JSON.parse(localStorage.getItem(k) || '[]');
 
-        // --- ДИНАМИКАЛЫҚ ТАЙМЕР ЛОГИКАСЫ ---
+        const quotes = [
+            "Бүгін кітапханаға баруды ұмытпа! 📚",
+            "Сәттілік! Сенің қолыңнан бәрі келеді. ✨",
+            "Кішкентай қадамдар үлкен жеңіске әкеледі. 🚶‍♂️",
+            "Бүгін жаңа нәрсе үйренуге тамаша күн! 🧠",
+            "Өзіңе сен, өзіңді алып шығар-еңбегің мен ниетің екі жақтап! 💪"
+        ];
+
+        // --- DYNAMIC TIMER LOGIC ---
         function saveSession() {
             const val = document.getElementById('session-input').value;
-            if(!val) return alert("Датаны таңдаңыз!");
+            if(!val) return alert("Күнді таңдаңыз!");
             localStorage.setItem('user_exam_date', val);
             alert("Сессия уақыты сақталды!");
             updateTimer();
         }
 
         function updateTimer() {
-            const savedDate = localStorage.getItem('user_exam_date');
+            const saved = localStorage.getItem('user_exam_date');
+            const container = document.getElementById('timer-container');
             const display = document.getElementById("countdown");
-            if(!savedDate) {
-                display.innerText = "Күн орнатылмаған";
+            
+            if(!saved) {
+                container.style.display = 'none';
                 return;
             }
-            const diff = new Date(savedDate).getTime() - new Date().getTime();
+
+            const diff = new Date(saved).getTime() - new Date().getTime();
             if(diff <= 0) {
+                container.style.display = 'block';
                 display.innerText = "Сессия басталды!";
                 return;
             }
+
+            container.style.display = 'block';
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            display.innerText = `${days}к ${hours}с қалды`;
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            display.innerText = `${days}к ${hours}с ${mins}м`;
         }
         setInterval(updateTimer, 1000);
 
-        // --- ИНТЕРФЕЙС ЖӘНЕ ТАҚЫРЫП ---
+        // --- CORE UI ---
         function toggleTheme() {
             const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.body.setAttribute('data-theme', theme);
@@ -170,36 +178,61 @@
         function openSection(id) { document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); if(id==='admin') renderAdminAll(); }
         function backToHome() { openSection('home'); }
 
-        // --- ФУНКЦИЯЛАР ---
-        function addTodo() { let t = document.getElementById('todoInp').value; if(!t) return; let l = get('u_todo'); l.push({t, done: false, id: Date.now()}); store('u_todo', l); document.getElementById('todoInp').value = ""; renderTodo(); }
-        function toggleTodo(id) { let l = get('u_todo'); let i = l.find(x => x.id === id); if(i) i.done = !i.done; store('u_todo', l); renderTodo(); }
-        function renderTodo() { document.getElementById('todoList').innerHTML = get('u_todo').map(i => `<div class="list-item"><span class="${i.done?'todo-done':''}" onclick="toggleTodo(${i.id})">${i.t}</span><i class="fas fa-trash text-danger" onclick="del('u_todo',${i.id},renderTodo)"></i></div>`).join('') || "Жоспар бос."; }
-        function addGpaRow() { const row = document.createElement('div'); row.className='row g-2 mb-2'; row.innerHTML='<div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div>'; document.getElementById('gpa-rows').appendChild(row); }
-        function calculateAdvancedGPA() {
-            let tp = 0, tc = 0;
-            document.querySelectorAll('.gpa-score').forEach((s, i) => {
-                let score = parseFloat(s.value), credit = parseFloat(document.querySelectorAll('.gpa-credit')[i].value);
-                if (score && credit) { let g = score >= 90 ? 4.0 : score >= 80 ? 3.0 : score >= 70 ? 2.0 : 1.0; tp += g * credit; tc += credit; }
-            });
-            document.getElementById('advancedGpaRes').innerText = "GPA: " + (tc > 0 ? (tp/tc).toFixed(2) : 0);
+        // --- APP LOGIC ---
+        function addGpaRow() {
+            const r = document.createElement('div'); r.className='row g-2 mb-2';
+            r.innerHTML='<div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div>';
+            document.getElementById('gpa-rows').appendChild(r);
         }
-        function saveNews() { let t = document.getElementById('newsInp').value; if(!t) return; let n = get('u_news'); n.unshift({t, id: Date.now()}); store('u_news', n); renderNews(); backToHome(); }
-        function renderNews() { document.getElementById('homeNews').innerHTML = get('u_news').slice(0,3).map(x => `<div class="list-item">${x.t}</div>`).join('') || "Жаңалық жоқ."; }
-        function addSch() { let d=document.getElementById('day').value, s=document.getElementById('subj').value; if(!s) return; let l=get('u_sch'); l.push({d,s,id:Date.now()}); store('u_sch',l); renderSch(); }
-        function renderSch() { document.getElementById('schList').innerHTML = get('u_sch').map(i => `<div class="list-item"><span><b>${i.d}:</b> ${i.s}</span><i class="fas fa-trash text-danger" onclick="del('u_sch',${i.id},renderSch)"></i></div>`).join(''); }
-        function renderGl() { let gl=get('u_gl'); document.getElementById('glossaryView').innerHTML = gl.map(i => `<div class="mb-2"><b>${i.t}</b> - ${i.d}</div>`).join('') || "Сөздік бос."; }
-        function addGlossary() { let t=document.getElementById('glTerm').value, d=document.getElementById('glDef').value; if(!t||!d) return; let gl=get('u_gl'); gl.push({t,d,id:Date.now()}); store('u_gl',gl); renderGl(); }
-        function sendQ() { let q=document.getElementById('anonQ').value; if(!q) return; let qs=get('u_qs'); qs.push({q, id:Date.now()}); store('u_qs',qs); alert("Жіберілді!"); backToHome(); }
+        function calculateAdvancedGPA() {
+            let tp=0, tc=0;
+            document.querySelectorAll('.gpa-score').forEach((s, i) => {
+                let sc=parseFloat(s.value), cr=parseFloat(document.querySelectorAll('.gpa-credit')[i].value);
+                if(sc && cr) {
+                    let g = sc>=95?4.0:sc>=90?3.67:sc>=85?3.33:sc>=80?3.0:sc>=75?2.67:sc>=70?2.33:2.0;
+                    tp += g*cr; tc += cr;
+                }
+            });
+            document.getElementById('advancedGpaRes').innerText = "GPA: " + (tc>0?(tp/tc).toFixed(2):0);
+        }
+        function saveNews() {
+            let t=document.getElementById('newsInp').value, u=document.getElementById('urgentCheck').checked;
+            if(!t) return;
+            let n=get('u_news'); n.unshift({t, urgent:u, id:Date.now(), time:Date.now()});
+            store('u_news', n); renderNews(); backToHome();
+        }
+        function renderNews() {
+            let n=get('u_news');
+            document.getElementById('homeNews').innerHTML = n.map(x => `<div class="list-item ${x.urgent?'urgent':''}"><div>${x.urgent?'<b>⚠️ Шұғыл:</b> ':''}${x.t}</div><i class="fas fa-trash text-danger" onclick="del('u_news',${x.id},renderNews)"></i></div>`).join('') || "Жаңалық жоқ.";
+        }
+        function addSch() {
+            let d=document.getElementById('day').value, s=document.getElementById('subj').value;
+            if(!s) return;
+            let l=get('u_sch'); l.push({d,s,id:Date.now()}); store('u_sch',l); renderSch();
+        }
+        function renderSch() {
+            document.getElementById('schList').innerHTML = get('u_sch').map(i => `<div class="list-item"><span><b>${i.d}:</b> ${i.s}</span><i class="fas fa-trash text-danger" onclick="del('u_sch',${i.id},renderSch)"></i></div>`).join('');
+        }
+        function renderGl() {
+            document.getElementById('glossaryView').innerHTML = get('u_gl').map(i => `<div class="mb-2"><b>${i.t}</b> - ${i.d}</div>`).join('') || "Сөздік бос.";
+        }
+        function addGlossary() {
+            let t=document.getElementById('glTerm').value, d=document.getElementById('glDef').value;
+            if(!t||!d) return;
+            let gl=get('u_gl'); gl.push({t,d,id:Date.now()}); store('u_gl',gl); renderGl();
+        }
+        function sendQ() {
+            let q=document.getElementById('anonQ').value; if(!q) return;
+            let qs=get('u_qs'); qs.push({q, id:Date.now()}); store('u_qs',qs);
+            alert("Жіберілді!"); backToHome();
+        }
         function enterAdmin() { if(prompt("Пароль:") === "admin123") openSection('admin'); }
-        function renderAdminAll() { document.getElementById('adminQList').innerHTML = get('u_qs').map(i => `<div class="small border-bottom mb-2">${i.q}</div>`).join(''); }
+        function renderAdminAll() { document.getElementById('adminQList').innerHTML = get('u_qs').map(i => `<div class="small border-bottom mb-2">${i.q} <i class="fas fa-trash text-danger float-end" onclick="del('u_qs',${i.id},renderAdminAll)"></i></div>`).join(''); }
         function del(k, id, cb) { store(k, get(k).filter(x => x.id !== id)); cb(); }
 
         window.onload = () => { 
-            updateTimer(); 
-            renderNews(); 
-            renderSch(); 
-            renderGl(); 
-            renderTodo(); 
+            document.getElementById('daily-quote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            updateTimer(); renderNews(); renderSch(); renderGl(); 
             const saved = localStorage.getItem('user_exam_date');
             if(saved) document.getElementById('session-input').value = saved;
         };
