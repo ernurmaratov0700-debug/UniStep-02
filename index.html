@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniStep - 1-курс Менторы</title>
+    <title>UniStep - Студенттік Портал</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -12,186 +12,197 @@
             --primary: #2c3e50;
             --secondary: #3498db;
             --accent: #e74c3c;
+            --light-bg: #f8f9fa;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; }
-        .navbar { background-color: var(--primary); }
-        .hero-section { 
+        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); }
+        
+        /* Navbar стилі */
+        .navbar { background-color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        /* Hero Section - Басты беттің көркі */
+        .hero-mini { 
             background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: white; 
-            padding: 80px 0; 
-            text-align: center;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
+            color: white; padding: 40px 0; margin-bottom: 30px;
+            border-radius: 0 0 30px 30px;
         }
-        .card-custom {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            height: 100%;
+
+        /* Навигациялық карталар */
+        .nav-card {
+            border: none; border-radius: 15px; transition: 0.3s;
+            cursor: pointer; background: white; text-align: center; padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        .card-custom:hover { transform: translateY(-10px); }
-        .icon-box {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-        .btn-calc { background-color: var(--accent); color: white; border-radius: 25px; }
-        .lost-found-item { border-left: 5px solid var(--accent); background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .nav-card i { font-size: 2rem; color: var(--secondary); margin-bottom: 10px; }
+
+        /* Бөлімдерді жасыру/көрсету */
+        .section-content { display: none; }
+        .active-section { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-walking"></i> UniStep</a>
+            <a class="navbar-brand fw-bold" href="#" onclick="showSection('home') text-white"><i class="fas fa-walking"></i> UniStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('home')">Басты бет</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('academic')">Академиялық</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('campus')">Кампус</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <header class="hero-section">
+    <header class="hero-mini text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">UniStep: Цифрлық Ментор</h1>
-            <p class="lead">Университетке бейімделудің ең оңай жолы</p>
+            <h2 id="section-title">Қош келдіңіз, Студент! 👋</h2>
+            <p id="section-subtitle">Сіздің цифрлық көмекшіңіз әрқашан қасыңызда.</p>
         </div>
     </header>
 
-    <div class="container my-5">
+    <div class="container mb-5">
         
-        <div class="row g-4 text-center">
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <div class="icon-box"><i class="fas fa-book-open"></i></div>
-                    <h4>Глоссарий</h4>
-                    <p class="text-muted">GPA, Силлабус, Эдвайзер — барлық терминдерге түсініктеме.</p>
-                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#glossaryModal">Ашу</button>
+        <div id="home" class="section-content active-section">
+            <div class="row g-4">
+                <div class="col-md-4" onclick="showSection('academic')">
+                    <div class="nav-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h5>Оқу процесі</h5>
+                        <p class="small text-muted">GPA есептеу және терминдер</p>
+                    </div>
+                </div>
+                <div class="col-md-4" onclick="showSection('campus')">
+                    <div class="nav-card">
+                        <i class="fas fa-university"></i>
+                        <h5>Кампус тынысы</h5>
+                        <p class="small text-muted">Карта және хабарландырулар</p>
+                    </div>
+                </div>
+                <div class="col-md-4" onclick="showSection('advisor')">
+                    <div class="nav-card">
+                        <i class="fas fa-comments"></i>
+                        <h5>Digital Advisor</h5>
+                        <p class="small text-muted">Кеңес алу және сұрақ қою</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
-                    <h4>Карта</h4>
-                    <p class="text-muted">Асхана, кітапхана және оқу залдарының орналасуы.</p>
-                    <button class="btn btn-outline-primary btn-sm">Көру</button>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <div class="icon-box"><i class="fas fa-bullhorn"></i></div>
-                    <h4>Хабарландыру</h4>
-                    <p class="text-muted">Маңызды шаралар мен Lost & Found қызметі.</p>
-                    <button class="btn btn-outline-primary btn-sm">Тізімді көру</button>
+
+            <div class="mt-5">
+                <h4 class="mb-3">🔔 Соңғы жаңалықтар</h4>
+                <div class="alert alert-info border-0 shadow-sm rounded-4">
+                    <strong>Жаңалық:</strong> Тіркеу апталығы басталды. Эдвайзермен хабарласуды ұмытпаңыз!
                 </div>
             </div>
         </div>
 
-        <div class="row mt-5">
-            <div class="col-12">
-                <div class="card card-custom p-5 shadow-lg">
-                    <h2 class="text-center mb-4"><i class="fas fa-calculator text-danger"></i> Интерактивті GPA Калькулятор</h2>
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-md-4">
-                            <label class="form-label">Бағаңыз (0-100):</label>
-                            <input type="number" id="userScore" class="form-control form-control-lg" placeholder="Мысалы: 95">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Кредит саны:</label>
-                            <input type="number" id="userCredits" class="form-control form-control-lg" placeholder="Мысалы: 3">
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button onclick="calculate()" class="btn btn-calc btn-lg w-100 shadow">Есептеу</button>
+        <div id="academic" class="section-content">
+            <div class="card border-0 shadow-sm p-4 mb-4">
+                <h3><i class="fas fa-calculator text-danger"></i> GPA Калькулятор</h3>
+                <hr>
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label>Пән бағасы (0-100):</label>
+                        <input type="number" id="scoreInput" class="form-control" placeholder="М: 92">
+                    </div>
+                    <div class="col-md-5">
+                        <label>Кредит саны:</label>
+                        <input type="number" id="creditInput" class="form-control" placeholder="М: 3">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button onclick="calculateGPA()" class="btn btn-primary w-100">Есептеу</button>
+                    </div>
+                </div>
+                <div id="gpaResult" class="mt-3 fw-bold text-center"></div>
+            </div>
+
+            <div class="card border-0 shadow-sm p-4">
+                <h3><i class="fas fa-book-alphabet text-primary"></i> Студенттік Глоссарий</h3>
+                <div class="list-group list-group-flush mt-3">
+                    <div class="list-group-item"><strong>GPA</strong> - Орташа үлгерім көрсеткіші.</div>
+                    <div class="list-group-item"><strong>Prerequisite</strong> - Пәнді оқу үшін алдын ала білу керек пән.</div>
+                    <div class="list-group-item"><strong>Syllabus</strong> - Пәннің "төлқұжаты" (жоспары).</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="campus" class="section-content">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-sm p-4 h-100">
+                        <h3><i class="fas fa-map-marked-alt"></i> Университет Картасы</h3>
+                        <div class="bg-light d-flex align-items-center justify-content-center mt-3" style="height: 300px; border-radius: 15px;">
+                            <p class="text-muted">[Мұнда интерактивті карта немесе сурет болады]</p>
                         </div>
                     </div>
-                    <div id="gpaResult" class="text-center mt-4 h4 text-primary"></div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card border-0 shadow-sm p-4 h-100 text-white bg-dark">
+                        <h3><i class="fas fa-clock"></i> Жұмыс кестесі</h3>
+                        <ul class="list-unstyled mt-3">
+                            <li>📍 Кітапхана: 09:00 - 20:00</li>
+                            <li>📍 Асхана: 08:30 - 17:00</li>
+                            <li>📍 Коворкинг: 24/7</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-      <div class="row mt-5">
-    <div class="col-12">
-        <div class="card card-custom p-4 shadow-sm">
-            <h3 class="text-center mb-4"><i class="fas fa-calendar-alt text-primary"></i> Апталық сабақ кестесі</h3>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle text-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Уақыты</th>
-                            <th>Дүйсенбі</th>
-                            <th>Сейсенбі</th>
-                            <th>Сәрсенбі</th>
-                            <th>Бейсенбі</th>
-                            <th>Жұма</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="fw-bold">08:55 - 09:45</td>
-                            <td>-</td>
-                            <td class="table-info">Мат. анализ <br><small>(104-ауд)</small></td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td class="table-warning">Дене шынықтыру</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">14:40 - 15:30</td>
-                            <td class="table-success">Мат. анализ (лек) <br><small>(201-ауд)</small></td>
-                            <td class="table-success">Оқытудың жаңа тәсілдері <br><small>(305-ауд)</small></td>
-                            <td class="table-success">Мат. анализ <br><small>(100-ауд)</small></td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">15:50 - 16:40</td>
-                            <td class="table-success">Мат. анализ (лек)</td>
-                            <td>-</td>
-                            <td class="table-success">Мат. анализ (лек)</td>
-                            <td class="table-info">Оқыту тәсілдері (пр)</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="alert alert-info mt-3 py-2">
-                <i class="fas fa-info-circle"></i> <strong>Ескерту:</strong> Сабақ уақытындағы өзгерістер туралы хабарламалар осы жерде көрсетіледі.
-            </div>
-        </div>
-    </div>
-</div>
 
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <h3 class="mb-4">🔍 Табылған заттар</h3>
-                <div class="lost-found-item shadow-sm">
-                    <strong>Табылды:</strong> Apple AirPods (Кітапхана, 3-қабат)
-                </div>
-                <div class="lost-found-item shadow-sm" style="border-left-color: #f1c40f;">
-                    <strong>Жоғалды:</strong> Студенттік билет (Асхана маңы)
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-custom p-4 bg-white">
-                    <h3><i class="fas fa-user-tie text-primary"></i> Digital Advisor</h3>
-                    <p class="small text-muted">Эдвайзерге анонимді сұрақ қойыңыз:</p>
-                    <textarea class="form-control mb-3" rows="3" placeholder="Сұрағыңызды жазыңыз..."></textarea>
-                    <button class="btn btn-primary w-100 shadow-sm" onclick="alert('Сұрағыңыз жіберілді!')">Жіберу</button>
-                </div>
+        <div id="advisor" class="section-content">
+            <div class="card border-0 shadow p-4 mx-auto" style="max-width: 600px;">
+                <h3 class="text-center">👨‍🏫 Digital Advisor</h3>
+                <p class="text-center text-muted">Сұрақтарыңызға анонимді түрде жауап алыңыз</p>
+                <textarea class="form-control mb-3" rows="4" placeholder="Мысалы: Жатақханаға қалай тіркелемін?"></textarea>
+                <button class="btn btn-primary w-100 py-2" onclick="alert('Сұрақ жіберілді!')">Жіберу</button>
             </div>
         </div>
+
     </div>
 
-    <div class="modal fade" id="glossaryModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Студенттік Глоссарий</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li><strong>GPA:</strong> Орташа үлгерім балы.</li>
-                        <li><strong>Силлабус:</strong> Пәннің оқу жоспары.</li>
-                        <li><strong>Эдвайзер:</strong> Сіздің академиялық кеңесшіңіз.</li>
-                        <li><strong>Ретроспекция:</strong> Өткен материалды қайталау.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        // Бөлімдерді ауыстыру функциясы
+        function showSection(sectionId) {
+            // Барлық бөлімдерді жасыру
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active-section');
+            });
+
+            // Керекті бөлімді көрсету
+            document.getElementById(sectionId).classList.add('active-section');
+
+            // Header мәтінін өзгерту
+            const titles = {
+                'home': 'Қош келдіңіз, Студент! 👋',
+                'academic': 'Академиялық ресурстар 📚',
+                'campus': 'Кампус бойынша нұсқаулық 🗺️',
+                'advisor': 'Кеңесшімен байланыс 💬'
+            };
+            document.getElementById('section-title').innerText = titles[sectionId];
+        }
+
+        // GPA Есептеу
+        function calculateGPA() {
+            const score = document.getElementById('scoreInput').value;
+            const res = document.getElementById('gpaResult');
+            if(!score) return;
+            
+            let gpa = 0;
+            if(score >= 95) gpa = 4.0;
+            else if(score >= 90) gpa = 3.67;
+            else if(score >= 80) gpa = 3.0;
+            else gpa = 2.0;
+
+            res.innerHTML = `<span class="badge bg-success p-2">GPA: ${gpa}</span>`;
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
