@@ -3,180 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniStep - Цифрлық Ментор</title>
+    <title>UniStep - Smart Mentor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --sidebar-width: 250px;
+            --primary: #1e293b; /* Қанық қою көк */
+            --secondary: #3b82f6; /* Ашық көк */
+            --accent: #f59e0b; /* Сарғыш (акцент үшін) */
+            --bg-light: #f8fafc;
         }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-light); overflow-x: hidden; }
 
         /* Sidebar стилі */
         #sidebar {
-            height: 100vh;
-            width: var(--sidebar-width);
-            position: fixed;
-            left: -250px; /* Басында жабық тұрады */
-            top: 0;
-            background: var(--primary);
-            color: white;
-            transition: 0.3s;
-            z-index: 1000;
-            padding-top: 60px;
+            height: 100vh; width: 260px; position: fixed; left: -260px; top: 0;
+            background: var(--primary); color: white; transition: 0.3s ease-in-out; z-index: 1050;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
         }
         #sidebar.active { left: 0; }
+        #sidebar .logo { padding: 30px 20px; font-size: 24px; font-weight: bold; border-bottom: 1px solid #334155; }
         #sidebar a {
-            padding: 15px 25px;
-            display: block;
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: 0.2s;
+            padding: 15px 25px; display: block; color: #94a3b8; text-decoration: none; transition: 0.2s;
         }
-        #sidebar a:hover { background: #34495e; color: white; }
-        #sidebar i { margin-right: 10px; width: 20px; }
+        #sidebar a:hover, #sidebar a.active-link { background: #334155; color: white; border-left: 4px solid var(--secondary); }
+        #sidebar i { margin-right: 12px; width: 20px; }
 
-        /* Негізгі мазмұн */
-        #content { width: 100%; transition: 0.3s; padding: 20px; }
-        .menu-btn { font-size: 24px; cursor: pointer; color: var(--primary); margin-bottom: 20px; }
+        /* Content стилі */
+        #content { width: 100%; transition: 0.3s; padding: 20px 40px; }
+        .top-bar { display: flex; align-items: center; margin-bottom: 30px; }
+        .menu-toggle { font-size: 26px; cursor: pointer; color: var(--primary); margin-right: 20px; }
 
-        /* Дизайн элементтері */
-        .hero-card {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; border-radius: 20px; padding: 40px; margin-bottom: 30px;
+        /* Dashboard виджеттері */
+        .stat-card {
+            border: none; border-radius: 16px; padding: 20px; background: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: 0.3s;
         }
-        .section-page { display: none; animation: fadeIn 0.4s; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .icon-circle {
+            width: 50px; height: 50px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 24px; margin-bottom: 15px;
+        }
+
+        /* Бөлімдер */
+        .section-page { display: none; animation: slideUp 0.4s ease; }
         .section-page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .card-custom { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); background: white; padding: 20px; margin-bottom: 20px; }
-        .announcement-item { border-left: 5px solid var(--accent); background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .announcement-box { background: white; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; }
+        .news-item { border-bottom: 1px solid #f1f5f9; padding: 15px 0; }
+        .news-item:last-child { border: none; }
     </style>
 </head>
 <body>
 
     <div id="sidebar">
-        <h4 class="text-center mb-4">UniStep Мәзірі</h4>
-        <a href="#" onclick="showSection('home')"><i class="fas fa-home"></i> Басты бет</a>
-        <a href="#" onclick="showSection('academic')"><i class="fas fa-graduation-cap"></i> Оқу (GPA & Глоссарий)</a>
-        <a href="#" onclick="showSection('schedule')"><i class="fas fa-calendar-alt"></i> Сабақ кестесі</a>
-        <a href="#" onclick="showSection('campus')"><i class="fas fa-map-marker-alt"></i> Кампус & Хабарландыру</a>
-        <a href="#" onclick="adminLogin()"><i class="fas fa-user-shield"></i> Админ панель</a>
+        <div class="logo"><i class="fas fa-graduation-cap text-secondary"></i> UniStep</div>
+        <a href="#" onclick="showSection('home')" id="link-home"><i class="fas fa-th-large"></i> Басты бет</a>
+        <a href="#" onclick="showSection('academic')" id="link-academic"><i class="fas fa-book"></i> Оқу ресурстары</a>
+        <a href="#" onclick="showSection('schedule')" id="link-schedule"><i class="fas fa-clock"></i> Сабақ кестесі</a>
+        <a href="#" onclick="showSection('campus')" id="link-campus"><i class="fas fa-university"></i> Кампус</a>
+        <a href="#" onclick="adminLogin()"><i class="fas fa-lock"></i> Админ панель</a>
     </div>
 
     <div id="content">
-        <div class="menu-btn" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i> <span class="h4 ms-2">UniStep</span>
+        <div class="top-bar">
+            <i class="fas fa-bars menu-toggle" onclick="toggleSidebar()"></i>
+            <h3 id="page-title" class="m-0 fw-bold">Dashboard</h3>
         </div>
 
         <div id="home" class="section-page active">
-            <div class="hero-card">
-                <h1>Қош келдіңіз, Студент! 👋</h1>
-                <p>Бүгінгі маңызды жаңалықтарды осы жерден көре аласыз.</p>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-8">
-                    <h4 class="mb-3">🔔 Соңғы хабарландырулар</h4>
-                    <div id="homeNews">
-                        </div>
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <div class="stat-card" onclick="showSection('schedule')" style="cursor:pointer">
+                        <div class="icon-circle bg-primary text-white"><i class="fas fa-calendar-day"></i></div>
+                        <h4>Кесте</h4>
+                        <p class="text-muted m-0">Бүгінгі сабақтарды тексеру</p>
+                    </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card-custom">
-                        <h5>👨‍🏫 Digital Advisor</h5>
-                        <p class="small text-muted">Сұрағыңызды анонимді түрде қалдырыңыз.</p>
-                        <textarea id="anonQ" class="form-control mb-2" rows="3" placeholder="Сұрақ жазыңыз..."></textarea>
-                        <button onclick="sendQ()" class="btn btn-primary w-100 btn-sm">Жіберу</button>
+                    <div class="stat-card" onclick="showSection('academic')" style="cursor:pointer">
+                        <div class="icon-circle bg-success text-white"><i class="fas fa-chart-line"></i></div>
+                        <h4>GPA</h4>
+                        <p class="text-muted m-0">Орташа баллды есептеу</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="icon-circle bg-warning text-white"><i class="fas fa-bell"></i></div>
+                        <h4>Жаңалық</h4>
+                        <p class="text-muted m-0" id="newsCount">0 жаңа хабарландыру</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="announcement-box">
+                        <h5 class="fw-bold mb-4">📢 Соңғы хабарландырулар</h5>
+                        <div id="homeNews"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement-box text-center">
+                        <i class="fas fa-user-secret fa-3x text-muted mb-3"></i>
+                        <h5>Анонимді сұрақ</h5>
+                        <textarea id="anonQ" class="form-control mb-3" rows="3" placeholder="Эдвайзерге не айтқыңыз келеді?"></textarea>
+                        <button onclick="sendQ()" class="btn btn-primary w-100 rounded-pill">Жіберу</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="academic" class="section-page">
-            <div class="card-custom">
-                <h3><i class="fas fa-calculator text-danger"></i> GPA Калькулятор</h3>
+            <div class="card shadow-sm border-0 p-4 mb-4 rounded-4">
+                <h4><i class="fas fa-calculator text-primary me-2"></i> GPA Калькулятор</h4>
                 <div class="row g-3">
-                    <div class="col-md-4"><input type="number" id="sc" class="form-control" placeholder="Баға (0-100)"></div>
-                    <div class="col-md-4"><input type="number" id="cr" class="form-control" placeholder="Кредит саны"></div>
-                    <div class="col-md-4"><button onclick="calc()" class="btn btn-danger w-100">Есептеу</button></div>
+                    <div class="col-md-4"><input type="number" id="sc" class="form-control" placeholder="Балл (0-100)"></div>
+                    <div class="col-md-4"><input type="number" id="cr" class="form-control" placeholder="Кредит"></div>
+                    <div class="col-md-4"><button onclick="calc()" class="btn btn-primary w-100">Есептеу</button></div>
                 </div>
-                <div id="gpaRes" class="mt-3 fw-bold h5 text-center"></div>
-            </div>
-
-            <div class="card-custom">
-                <h4>📚 Студенттік Глоссарий</h4>
-                <ul class="list-unstyled row">
-                    <li class="col-md-6 border-bottom py-2"><b>GPA:</b> Орташа үлгерім балы.</li>
-                    <li class="col-md-6 border-bottom py-2"><b>Силлабус:</b> Пән жоспары.</li>
-                    <li class="col-md-6 border-bottom py-2"><b>Эдвайзер:</b> Академиялық кеңесші.</li>
-                    <li class="col-md-6 border-bottom py-2"><b>Office Hours:</b> Оқытушымен консультация.</li>
-                </ul>
+                <div id="gpaRes" class="mt-3 text-center h4 text-primary fw-bold"></div>
             </div>
         </div>
 
         <div id="schedule" class="section-page">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card-custom">
-                        <h5>📅 Сабақ қосу</h5>
-                        <select id="day" class="form-select mb-2">
-                            <option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option>
-                            <option>Бейсенбі</option><option>Жұма</option>
-                        </select>
-                        <input type="text" id="subj" class="form-control mb-2" placeholder="Уақыты: Пән">
-                        <button onclick="addSch()" class="btn btn-primary w-100">Сақтау</button>
-                    </div>
+            <div class="card border-0 p-4 shadow-sm rounded-4">
+                <h5>Жаңа сабақ қосу</h5>
+                <div class="d-flex gap-2">
+                    <select id="day" class="form-select w-25"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select>
+                    <input type="text" id="subj" class="form-control" placeholder="09:00 - Математика">
+                    <button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button>
                 </div>
-                <div id="schList" class="col-md-8 row"></div>
             </div>
+            <div id="schList" class="row mt-4"></div>
         </div>
 
         <div id="campus" class="section-page">
-            <div class="card-custom">
+            <div class="card border-0 p-4 shadow-sm mb-4">
                 <h4>🗺️ Университет Картасы</h4>
-                <div class="bg-light p-5 text-center rounded"> [Мұнда карта суреті немесе Leaflet.js орнатуға болады] </div>
+                <div class="bg-light p-5 text-center rounded-4 border">КАРТА СУРЕТІ ОСЫНДА</div>
             </div>
-            <div class="card-custom">
+            <div class="card border-0 p-4 shadow-sm">
                 <h4>📢 Жаңа хабарландыру жазу</h4>
-                <textarea id="newsInp" class="form-control mb-2" placeholder="Барлық студенттерге хабарлама..."></textarea>
-                <button onclick="addNw()" class="btn btn-warning w-100">Жариялау</button>
+                <textarea id="newsInp" class="form-control mb-3" placeholder="Студенттерге маңызды хабарлама..."></textarea>
+                <button onclick="addNw()" class="btn btn-warning w-100 fw-bold">Жариялау</button>
             </div>
         </div>
 
         <div id="admin" class="section-page">
-            <div class="card-custom border-danger">
-                <h3>🔒 Сұрақтар банкі (Тек Админ)</h3>
+            <div class="card border-0 p-4 shadow-sm border-start border-danger border-5">
+                <h3>🔒 Сұрақтар банкі (Эдвайзер үшін)</h3>
                 <div id="qList"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Sidebar ашу/жабу
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
 
-        // Бөлімдерді көрсету
         function showSection(id) {
             document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(window.innerWidth < 768) toggleSidebar(); // Мобильді нұсқада мәзірді жабу
+            document.getElementById('page-title').innerText = id.charAt(0).toUpperCase() + id.slice(1);
+            if(window.innerWidth < 768) toggleSidebar();
         }
 
-        // GPA есептеу
-        function calc() {
-            let s = document.getElementById('sc').value;
-            let r = document.getElementById('gpaRes');
-            if(!s) return;
-            let g = s >= 95 ? 4.0 : (s >= 90 ? 3.67 : (s >= 80 ? 3.0 : 2.0));
-            r.innerHTML = `Нәтиже: ${g}`;
-        }
-
-        // Хабарландыру
         function addNw() {
             let t = document.getElementById('newsInp').value;
             if(!t) return;
@@ -190,15 +182,15 @@
 
         function renderNw() {
             let n = JSON.parse(localStorage.getItem('unNews') || '[]');
+            document.getElementById('newsCount').innerText = `${n.length} жаңа хабарландыру`;
             document.getElementById('homeNews').innerHTML = n.map(x => `
-                <div class="announcement-item">
-                    <p class="mb-1">${x.t}</p>
-                    <small class="text-muted">${x.d}</small>
+                <div class="news-item">
+                    <div class="fw-bold text-dark">${x.t}</div>
+                    <small class="text-muted"><i class="far fa-clock me-1"></i>${x.d}</small>
                 </div>
-            `).join('') || "<p class='text-muted'>Әзірге хабарландыру жоқ.</p>";
+            `).join('') || "Хабарландыру жоқ.";
         }
 
-        // Сабақ кестесі
         function addSch() {
             let d = document.getElementById('day').value;
             let s = document.getElementById('subj').value;
@@ -213,35 +205,44 @@
         function renderSch() {
             let sch = JSON.parse(localStorage.getItem('unSch') || '[]');
             document.getElementById('schList').innerHTML = sch.map((x, i) => `
-                <div class="col-md-6 mb-2">
-                    <div class="card p-2 border-start border-primary border-4 shadow-sm">
-                        <small class="fw-bold">${x.d}</small>
-                        <div>${x.s} <i class="fas fa-trash text-danger float-end" style="cursor:pointer" onclick="del('unSch',${i},renderSch)"></i></div>
+                <div class="col-md-4 mb-3">
+                    <div class="stat-card border-start border-primary border-4">
+                        <small class="text-primary fw-bold">${x.d}</small>
+                        <div class="d-flex justify-content-between">
+                            <span>${x.s}</span>
+                            <i class="fas fa-trash text-danger" style="cursor:pointer" onclick="del('unSch',${i},renderSch)"></i>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Анонимді сұрақтар
         function sendQ() {
             let q = document.getElementById('anonQ').value;
             if(!q) return;
             let qs = JSON.parse(localStorage.getItem('unQs') || '[]');
             qs.push({q, t: new Date().toLocaleString()});
             localStorage.setItem('unQs', JSON.stringify(qs));
-            alert("Жіберілді!");
+            alert("Сұрақ жіберілді!");
             document.getElementById('anonQ').value = "";
         }
 
+        // --- АДМИН ПАРОЛЬ ---
         function adminLogin() {
-            let p = prompt("Құпия сөз:");
-            if(p === "123") {
+            let p = prompt("Админ паролін енгізіңіз:");
+            if(p === "admin2026") { // Пароль осы жерде
                 let qs = JSON.parse(localStorage.getItem('unQs') || '[]');
                 document.getElementById('qList').innerHTML = qs.map(x => `
-                    <div class="alert alert-info"><b>Сұрақ:</b> ${x.q} <br><small>${x.t}</small></div>
+                    <div class="alert alert-info border-0 shadow-sm"><b>Сұрақ:</b> ${x.q} <br><small class="text-muted">${x.t}</small></div>
                 `).join('') || "Сұрақтар жоқ.";
                 showSection('admin');
-            } else { alert("Қате!"); }
+            } else { alert("Қате пароль!"); }
+        }
+
+        function calc() {
+            let s = document.getElementById('sc').value;
+            let g = s >= 95 ? 4.0 : (s >= 90 ? 3.67 : (s >= 80 ? 3.0 : 2.0));
+            document.getElementById('gpaRes').innerText = `GPA: ${g}`;
         }
 
         function del(key, i, cb) {
@@ -253,6 +254,5 @@
 
         window.onload = () => { renderNw(); renderSch(); };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
