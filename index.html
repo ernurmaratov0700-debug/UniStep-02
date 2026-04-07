@@ -7,36 +7,83 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* НЕГІЗГІ ТҮСТЕР */
         :root { 
             --primary: #1e293b; --secondary: #3b82f6; --accent: #f59e0b;
             --bg: #f8fafc; --card-bg: #ffffff; --text: #1e293b;
+            --muted: #64748b;
         }
+
+        /* ҚАРАҢҒЫ РЕЖИМ (DARK MODE) СТИЛЬДЕРІ */
         [data-theme="dark"] {
-            --primary: #0f172a; --secondary: #60a5fa; --bg: #1e293b; 
-            --card-bg: #334155; --text: #f1f5f9;
+            --primary: #0f172a; 
+            --secondary: #60a5fa; 
+            --bg: #0f172a; 
+            --card-bg: #1e293b; 
+            --text: #f1f5f9; /* Барлық негізгі мәтін ақшыл болады */
+            --muted: #94a3b8;
         }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); transition: 0.3s; margin: 0; padding-bottom: 30px; }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            transition: 0.3s; 
+            margin: 0; 
+            padding-bottom: 30px; 
+        }
         
         .top-nav { background: var(--primary); color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
         .hero { min-height: 35vh; background: linear-gradient(135deg, #2a3a50 30%, var(--secondary) 90%); color: white; border-radius: 0 0 40px 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
         
-        .timer-box { display: none; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 20px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); width: fit-content; margin-left: auto; margin-right: auto; }
+        .timer-box { display: none; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 12px 20px; border-radius: 20px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2); width: fit-content; margin-left: auto; margin-right: auto; color: white; }
 
         .section-page { display: none; animation: fadeIn 0.4s ease; padding: 25px 15px; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .stat-card { border: none; border-radius: 20px; padding: 15px; background: var(--card-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; text-align: center; transition: 0.3s; color: var(--text); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* КАРТОЧКАЛАР ТҮСІ */
+        .stat-card { 
+            border: none; border-radius: 20px; padding: 15px; 
+            background: var(--card-bg); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            cursor: pointer; text-align: center; transition: 0.3s; 
+            color: var(--text); /* Сөздер осы жерде көрінеді */
+            height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        }
         .stat-card:hover { transform: translateY(-5px); background: var(--secondary); color: white; }
         .stat-card i { margin-bottom: 8px; }
 
-        .s-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; }
+        .s-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; color: var(--text); }
+        .back-btn { font-size: 24px; cursor: pointer; margin-right: 15px; color: var(--text); }
         
-        .link-item { display: flex; align-items: center; padding: 15px; background: var(--bg); border-radius: 15px; margin-bottom: 12px; text-decoration: none; color: var(--text); border: 1px solid rgba(0,0,0,0.05); }
-        .list-item { border-left: 4px solid var(--secondary); padding: 10px 15px; background: rgba(0,0,0,0.05); border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .urgent { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.1); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        /* СІЛТЕМЕЛЕР МЕН ТІЗІМДЕР */
+        .link-item { 
+            display: flex; align-items: center; padding: 15px; 
+            background: rgba(125,125,125,0.1); 
+            border-radius: 15px; margin-bottom: 12px; 
+            text-decoration: none; color: var(--text); 
+            border: 1px solid rgba(125,125,125,0.1); 
+        }
+        .link-item b { color: var(--text); }
+        .text-muted { color: var(--muted) !important; }
+
+        .list-item { 
+            border-left: 4px solid var(--secondary); padding: 10px 15px; 
+            background: rgba(125,125,125,0.1); 
+            border-radius: 8px; margin-bottom: 10px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            color: var(--text);
+        }
+        .urgent { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.15); animation: pulse 2s infinite; }
+        
+        /* INPUT ТҮСТЕРІ */
+        input, select, textarea {
+            background-color: var(--bg) !important;
+            color: var(--text) !important;
+            border: 1px solid var(--muted) !important;
+        }
+        input::placeholder { color: var(--muted) !important; }
     </style>
 </head>
 <body>
@@ -89,20 +136,18 @@
 
     <div id="schedule" class="section-page"><div class="container">
         <div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Кесте және Сессия</h3></div>
-        
         <div class="s-card border border-warning">
-            <h6 class="fw-bold mb-2 text-warning"><i class="fas fa-hourglass-start me-2"></i>Сессия уақытын орнату</h6>
+            <h6 class="fw-bold mb-2 text-warning">Сессия уақытын орнату</h6>
             <div class="input-group">
                 <input type="datetime-local" id="session-input" class="form-control">
                 <button onclick="saveSession()" class="btn btn-warning text-white fw-bold">Сақтау</button>
             </div>
         </div>
-
-        <div class="s-card mb-3">
+        <div class="s-card mt-3">
             <h6 class="fw-bold">Сабақ қосу</h6>
             <div class="input-group"><select id="day" class="form-select"><option>Дүйсенбі</option><option>Сейсенбі</option><option>Сәрсенбі</option><option>Бейсенбі</option><option>Жұма</option></select><input type="text" id="subj" class="form-control" placeholder="Уақыты: Пән"><button onclick="addSch()" class="btn btn-success"><i class="fas fa-plus"></i></button></div>
         </div>
-        <div id="schList"></div>
+        <div id="schList" class="mt-3"></div>
     </div></div>
 
     <div id="academic" class="section-page"><div class="container">
@@ -115,7 +160,7 @@
         </div>
     </div></div>
 
-    <div id="map" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div><div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2565.4187053594!2d82.607421!3d49.951119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42eb45a6c3f3f3f3%3A0x1c1c1c1c1c1c1c1c!2sVKU!5e0!3m2!1skk!2skz!4v1" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div></div></div>
+    <div id="map" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Карта</h3></div><div class="s-card p-0 overflow-hidden"><iframe src="https://www.google.com/maps/embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div></div></div>
     <div id="glossary" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Сөздік</h3></div><div id="glossaryView" class="s-card"></div></div></div>
     <div id="news-write" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Жазу</h3></div><div class="s-card"><textarea id="newsInp" class="form-control mb-3" rows="3" placeholder="Хабарлама..."></textarea><div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" id="urgentCheck"><label class="form-check-label" for="urgentCheck">⚠️ Шұғыл</label></div><button onclick="saveNews()" class="btn btn-warning w-100 fw-bold">Жариялау</button></div></div></div>
     <div id="advisor" class="section-page"><div class="container"><div class="d-flex align-items-center mb-4"><i class="fas fa-arrow-left back-btn" onclick="backToHome()"></i><h3>Advisor</h3></div><div class="s-card"><h5>Анонимді сұрақ</h5><textarea id="anonQ" class="form-control mb-3" rows="4"></textarea><button onclick="sendQ()" class="btn btn-primary w-100">Жіберу</button></div></div></div>
@@ -127,15 +172,8 @@
         const store = (k, v) => localStorage.setItem(k, JSON.stringify(v));
         const get = (k) => JSON.parse(localStorage.getItem(k) || '[]');
 
-        const quotes = [
-            "Бүгін кітапханаға баруды ұмытпа! 📚",
-            "Сәттілік! Сенің қолыңнан бәрі келеді. ✨",
-            "Кішкентай қадамдар үлкен жеңіске әкеледі. 🚶‍♂️",
-            "Бүгін жаңа нәрсе үйренуге тамаша күн! 🧠",
-            "Өзіңе сен, өзіңді алып шығар-еңбегің мен ниетің екі жақтап! 💪"
-        ];
+        const quotes = ["Бүгін кітапханаға баруды ұмытпа! 📚", "Сәттілік! Сенің қолыңнан бәрі келеді. ✨", "Кішкентай қадамдар үлкен жеңіске әкеледі. 🚶‍♂️", "Бүгін жаңа нәрсе үйренуге тамаша күн! 🧠", "Өзіңе сен, өзіңді алып шығар еңбегің мен ниетің! 💪"];
 
-        // --- DYNAMIC TIMER LOGIC ---
         function saveSession() {
             const val = document.getElementById('session-input').value;
             if(!val) return alert("Күнді таңдаңыз!");
@@ -148,19 +186,9 @@
             const saved = localStorage.getItem('user_exam_date');
             const container = document.getElementById('timer-container');
             const display = document.getElementById("countdown");
-            
-            if(!saved) {
-                container.style.display = 'none';
-                return;
-            }
-
+            if(!saved) { container.style.display = 'none'; return; }
             const diff = new Date(saved).getTime() - new Date().getTime();
-            if(diff <= 0) {
-                container.style.display = 'block';
-                display.innerText = "Сессия басталды!";
-                return;
-            }
-
+            if(diff <= 0) { container.style.display = 'block'; display.innerText = "Сессия басталды!"; return; }
             container.style.display = 'block';
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -169,7 +197,6 @@
         }
         setInterval(updateTimer, 1000);
 
-        // --- CORE UI ---
         function toggleTheme() {
             const theme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.body.setAttribute('data-theme', theme);
@@ -178,7 +205,6 @@
         function openSection(id) { document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); if(id==='admin') renderAdminAll(); }
         function backToHome() { openSection('home'); }
 
-        // --- APP LOGIC ---
         function addGpaRow() {
             const r = document.createElement('div'); r.className='row g-2 mb-2';
             r.innerHTML='<div class="col-7"><input type="number" class="form-control gpa-score" placeholder="Балл"></div><div class="col-5"><input type="number" class="form-control gpa-credit" placeholder="Кредит"></div>';
@@ -202,8 +228,7 @@
             store('u_news', n); renderNews(); backToHome();
         }
         function renderNews() {
-            let n=get('u_news');
-            document.getElementById('homeNews').innerHTML = n.map(x => `<div class="list-item ${x.urgent?'urgent':''}"><div>${x.urgent?'<b>⚠️ Шұғыл:</b> ':''}${x.t}</div><i class="fas fa-trash text-danger" onclick="del('u_news',${x.id},renderNews)"></i></div>`).join('') || "Жаңалық жоқ.";
+            document.getElementById('homeNews').innerHTML = get('u_news').map(x => `<div class="list-item ${x.urgent?'urgent':''}"><div>${x.urgent?'<b>⚠️ Шұғыл:</b> ':''}${x.t}</div><i class="fas fa-trash text-danger" onclick="del('u_news',${x.id},renderNews)"></i></div>`).join('') || "Жаңалық жоқ.";
         }
         function addSch() {
             let d=document.getElementById('day').value, s=document.getElementById('subj').value;
